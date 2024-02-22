@@ -21,34 +21,44 @@ class Calculadora extends StatefulWidget {
 
 class _CalculadoraState extends State<Calculadora> {
   TextEditingController _controllerNumero1 = TextEditingController();
-  TextEditingController _controllerNumero2 = TextEditingController();
+  int numeroEscolhido = Random().nextInt(101);
   String _resultado = '';
+  String _tentativas = '';
+  int nTentativas = 0;
 
-  void _calcular(String operacao) {
-    double numero1 = double.tryParse(_controllerNumero1.text) ?? 0.0;
-    double numero2 = double.tryParse(_controllerNumero2.text) ?? 0.0;
-    double resultado;
+  void _verificar() {
+    double nPalpite = double.tryParse(_controllerNumero1.text) ?? 0.0;
+    String resultado = '';
 
     setState(() {
       //Montar as operações
-      switch (operacao) {
-        case 'Somar':
-          resultado = numero1 + numero2;
-          print(resultado);
-          break;
-        case 'Subtrair':
-          resultado = numero1 - numero2;
-          print(resultado);
-          break;
-        case 'Multiplicar':
-          resultado = numero1 * numero2;
-          print(resultado);
-          break;
-        case 'Dividir':
-          resultado = numero1 / numero2;
-          print(resultado);
-          break;
+      if (nPalpite == numeroEscolhido) {
+        resultado = "Parabéns! Você acertou";
+      } else if (nPalpite > numeroEscolhido) {
+        resultado = "O número é menor";
+        nTentativas++;
+      } else {
+        resultado = "O número é maior";
+        nTentativas++;
       }
+
+      _resultado = resultado;
+      _tentativas = 'Tentativa: $nTentativas';
+    });
+  }
+
+  void _reiniciar() {
+    int novoNumero = Random().nextInt(101);
+    setState(() {
+      if (novoNumero != numeroEscolhido) {
+        numeroEscolhido = novoNumero;
+      } else {
+        novoNumero = Random().nextInt(101);
+      }
+
+      _tentativas = '';
+      _resultado = '';
+      nTentativas = 0;
     });
   }
 
@@ -56,7 +66,7 @@ class _CalculadoraState extends State<Calculadora> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text('Calculadora Flutter'),
+        title: Text('Adivinhe o número'),
       ),
       body: Padding(
         padding: const EdgeInsets.all(16.0),
@@ -67,34 +77,25 @@ class _CalculadoraState extends State<Calculadora> {
             TextField(
               controller: _controllerNumero1,
               keyboardType: TextInputType.number,
-              decoration: InputDecoration(labelText: 'Número 1'),
-            ),
-            SizedBox(height: 16.0),
-            TextField(
-              controller: _controllerNumero2,
-              keyboardType: TextInputType.number,
-              decoration: InputDecoration(labelText: 'Número 2'),
+              decoration:
+                  InputDecoration(labelText: 'Digite um número para o palpite'),
             ),
             SizedBox(height: 16.0),
             ElevatedButton(
-              onPressed: () => _calcular('Somar'),
-              child: Text('Somar'),
+              onPressed: () => _verificar(),
+              child: Text('Verificar'),
             ),
             SizedBox(height: 16.0),
             ElevatedButton(
-              onPressed: () => _calcular('Subtrair'),
-              child: Text('Subtrair'),
+              onPressed: () => _reiniciar(),
+              child: Text('Reiniciar'),
             ),
             SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: () => _calcular('Multiplicar'),
-              child: Text('Multiplicar'),
-            ),
+            Text(_resultado,
+                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
             SizedBox(height: 16.0),
-            ElevatedButton(
-              onPressed: () => _calcular('Dividir'),
-              child: Text('Dividir'),
-            )
+            Text(_tentativas,
+                style: TextStyle(fontSize: 18.0, fontWeight: FontWeight.bold)),
           ],
         ),
       ),
