@@ -27,7 +27,7 @@ class ListaComprasScreen extends StatelessWidget {
             child: TextField(
               controller: _controller,
               decoration: InputDecoration(
-                labelText: 'Novo item',
+                labelText: 'Adicione um novo item',
                 // Ícone para adicionar tarefa ao pressionar o botão
                 suffixIcon: IconButton(
                   onPressed: () {
@@ -111,7 +111,7 @@ class ListaComprasScreen extends StatelessWidget {
                               ),
                             );
                           },
-                          icon: Icon(Icons.delete)),
+                          icon: Icon(Icons.delete, color: Colors.red,)),
                       leading: Checkbox(
                         value: model.compras[index].comprada,
                         onChanged: (value) {
