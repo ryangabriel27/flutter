@@ -15,7 +15,7 @@ class ListaComprasController extends ChangeNotifier {
       for (var compra in _compras) {
         // Percorre a lista de compras e verifica se o item ja foi adicionado
         if (nome.trim() == compra.nomeDoProduto) {
-          adicionado = true;
+          adicionado = true; 
         }
       }
       if (!adicionado) {
@@ -26,7 +26,7 @@ class ListaComprasController extends ChangeNotifier {
     } 
   }
 
-  void marcarComoConcluida(int indice) {
+  void marcarComoConcluida(int indice) { // Método para marcar uma compra concluida
     if (indice >= 0 && indice < _compras.length) {
       _compras[indice].comprada = !_compras[indice]
           .comprada; // Inverte o valor da propriedade concluida. Se for true vira false e vice-versa
@@ -34,7 +34,7 @@ class ListaComprasController extends ChangeNotifier {
     }
   }
 
-  void excluirCompra(int indice) {
+  void excluirCompra(int indice) { 
     if (indice >= 0 && indice < _compras.length) {
       _compras.removeAt(indice);
       notifyListeners();

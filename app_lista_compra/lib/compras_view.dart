@@ -5,8 +5,6 @@ import 'package:provider/provider.dart';
 class ListaComprasScreen extends StatelessWidget {
   // Controlador para o campo de texto de nova tarefa
   final TextEditingController _controller = TextEditingController();
-  //static const IconData clear = IconData(0xe168, fontFamily: 'MaterialIcons');
-  bool confirmaExcluir = false;
 
   @override
   Widget build(BuildContext context) {
@@ -60,7 +58,7 @@ class ListaComprasScreen extends StatelessWidget {
                         context: context,
                         builder: (context) => AlertDialog(
                           title: Text('Concluido'),
-                          content: Text('Tarefa adicionada!'),
+                          content: Text('Item adicionado!'),
                           actions: [
                             TextButton(
                               onPressed: () {
@@ -98,7 +96,7 @@ class ListaComprasScreen extends StatelessWidget {
                               context: context,
                               builder: (context) => AlertDialog(
                                 title: Text('Concluido'),
-                                content: Text('Tarefa excluída!'),
+                                content: Text('Item excluído!'),
                                 actions: [
                                   TextButton(
                                     onPressed: () {
@@ -123,7 +121,7 @@ class ListaComprasScreen extends StatelessWidget {
                               context: context,
                               builder: (context) => AlertDialog(
                                 title: Text('Concluido'),
-                                content: Text('Tarefa concluida!'),
+                                content: Text('Item comprado!'),
                                 actions: [
                                   TextButton(
                                     onPressed: () {
@@ -145,7 +143,7 @@ class ListaComprasScreen extends StatelessWidget {
                           context: context,
                           builder: (context) => AlertDialog(
                             title: Text('Concluido'),
-                            content: Text('Tarefa excluída!'),
+                            content: Text('Item excluído!'),
                             actions: [
                               TextButton(
                                 onPressed: () {
