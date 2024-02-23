@@ -5,6 +5,7 @@ import 'package:provider/provider.dart';
 class ListaTarefasScreen extends StatelessWidget {
   // Controlador para o campo de texto de nova tarefa
   final TextEditingController _controller = TextEditingController();
+  //static const IconData clear = IconData(0xe168, fontFamily: 'MaterialIcons');
 
   @override
   Widget build(BuildContext context) {
@@ -45,9 +46,12 @@ class ListaTarefasScreen extends StatelessWidget {
                   itemCount: model.tarefas.length,
                   itemBuilder: (context, index) {
                     return ListTile(
-                      // Exibição do texto da tarefa
                       title: Text(model.tarefas[index].descricao),
-                      // Checkbox para marcar a tarefa como concluída
+                      leading: IconButton(
+                          onPressed: () {
+                            model.excluirTarefa(index);
+                          },
+                          icon: Icon(Icons.clear)),
                       trailing: Checkbox(
                         value: model.tarefas[index].concluida,
                         onChanged: (value) {
@@ -55,7 +59,6 @@ class ListaTarefasScreen extends StatelessWidget {
                           model.marcarComoConcluida(index);
                         },
                       ),
-                      // Exclui a tarefa ao manter pressionado
                       onLongPress: () {
                         // Chamando o método excluirTarefa do Provider para atualizar o estado
                         model.excluirTarefa(index);

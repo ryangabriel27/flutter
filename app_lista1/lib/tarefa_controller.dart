@@ -8,17 +8,19 @@ class ListaTarefasController extends ChangeNotifier {
 
   // Métodos CRUD:
   void adicionarTarefa(String descricao) {
-    _tarefas.add(Tarefa(descricao, false));
-    notifyListeners();
-  }
-
-  void marcarComoConcluida(int indice) {
-    if (indice >= 0 && indice < _tarefas.length) {
-      _tarefas[indice].concluida = true;
+    if (descricao.trim().isNotEmpty) {
+      _tarefas.add(Tarefa(descricao.trim(), false));
       notifyListeners();
     }
   }
 
+  void marcarComoConcluida(int indice) {
+    if (indice >= 0 && indice < _tarefas.length) {
+      _tarefas[indice].concluida = !_tarefas[indice]
+          .concluida; // Inverte o valor da propriedade concluida. Se for true vira false e vice-versa
+      notifyListeners();
+    }
+  }
   void excluirTarefa(int indice) {
     if (indice >= 0 && indice < _tarefas.length) {
       _tarefas.removeAt(indice);
