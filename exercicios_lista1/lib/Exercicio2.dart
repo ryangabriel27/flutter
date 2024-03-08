@@ -15,28 +15,39 @@ class Exercicio2 extends StatelessWidget {
         body: Row(
           children: [
             Column(
-              children: [Text("Animais"),],
-            ),
-            Column(
               children: [
-                Text("Linha 1 Coluna 2 | "),
-                Text("Linha 2 Coluna 2 | "),
-                Text("Linha 3 Coluna 2 | "),
-                Text("Linha 4 Coluna 2 | "),
+                Text("Nome "),
+                Text("Cristiano Ronaldo "),
+                Text("Messi "),
+                Text("Kylian Mbappe "),
+                Text("Zlatan Ibrahimovic "),
               ],
             ),
-            Column(children: [
-              Text("Linha 1 Coluna 3 | "),
-              Text("Linha 2 Coluna 3 | "),
-              Text("Linha 3 Coluna 3 | "),
-              Text("Linha 4 Coluna 3 | "),
-            ]),
             Column(
               children: [
-                Text("Linha 1 Coluna 4 | "),
-                Text("Linha 2 Coluna 4 | "),
-                Text("Linha 3 Coluna 4 | "),
-                Text("Linha 4 Coluna 4 | "),
+                Text("Idade  "),
+                Text("36  "),
+                Text("34  "),
+                Text("23  "),
+                Text("40  "),
+              ],
+            ),
+            Column(
+              children: [
+                Text("Nacionalidade "),
+                Text("Portuguesa "),
+                Text("Argentina "),
+                Text("Francesa "),
+                Text("Sueca "),
+              ],
+            ),
+            Column(
+              children: [
+                Text("Time "),
+                Text("Al-Nassr "),
+                Text("Inter Miami "),
+                Text("Paris Saint-Germain "),
+                Text("AC Milan "),
               ],
             ),
           ],
