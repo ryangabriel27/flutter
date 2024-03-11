@@ -75,7 +75,7 @@ class Exercicio8 extends StatelessWidget {
                         ),
                         Center(
                           child: Text(
-                            "Repelente OFF",
+                            "Bolacha",
                             style: TextStyle(fontSize: 20),
                           ),
                         ),
@@ -110,7 +110,7 @@ class Exercicio8 extends StatelessWidget {
                         ),
                         Center(
                           child: Text(
-                            "Repelente OFF",
+                            "Leite",
                             style: TextStyle(fontSize: 20),
                           ),
                         ),
