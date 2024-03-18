@@ -1,24 +1,27 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_web_browser/flutter_web_browser.dart';
 
 void main() {
   runApp(Exercicio2());
 }
 
 class Exercicio2 extends StatelessWidget {
-  List<String> nomeFilmes = [
+  List<String> nomeFilmes = [  // Array para o nome dos filmes
     "Titanic (1997)",
     "Harry Potter e a Pedra Filosofal (2001)",
     "O Rei Leão (1994)",
-    "Matrix (1999)"
+    "Matrix (1999)",
+    "Oppenheimer (2023)",
+    "Interestelar (2014)" 
   ];
 
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData.dark(),
       home: Scaffold(
         appBar: AppBar(
-          title: Text("Exercício 2"),
+          title: Text("FilmVerse"),
+          centerTitle: true,
         ),
         body: ListView.builder(
           itemCount: nomeFilmes.length,
@@ -48,16 +51,15 @@ class Exercicio2 extends StatelessWidget {
                           ),
                           SizedBox(height: 8),
                           ElevatedButton(
-                              onPressed: () => openBrowserTab(index),
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor:
-                                    Colors.purple, // Cor de fundo roxa
-                                foregroundColor:
-                                    Colors.white, // Cor do texto branco
-                              ),
-                              child: Text(
-                                'Ver trailer',
-                              )),
+                            onPressed: () => {
+
+                            },
+                            style: ElevatedButton.styleFrom(
+                              backgroundColor: Colors.purple,
+                              foregroundColor: Colors.white,
+                            ),
+                            child: Text('Ver trailer'),
+                          ),
                         ],
                       ),
                     ),
@@ -69,28 +71,5 @@ class Exercicio2 extends StatelessWidget {
         ),
       ),
     );
-  }
-}
-
-void openBrowserTab(int index) {
-  switch (index) {
-    case 0:
-      FlutterWebBrowser.openWebPage(
-          url: "https://www.youtube.com/watch?v=IH6_CA_ocqY");
-      break;
-    case 1:
-      FlutterWebBrowser.openWebPage(
-          url: "https://www.youtube.com/watch?v=9fIObnIGMlI");
-      break;
-    case 2:
-      FlutterWebBrowser.openWebPage(
-          url: "https://www.youtube.com/watch?v=rHiHRhbTv-Q");
-      break;
-    case 3:
-      FlutterWebBrowser.openWebPage(
-          url: "https://www.youtube.com/watch?v=2KnZac176Hs");
-      break;
-    default:
-      break;
   }
 }
