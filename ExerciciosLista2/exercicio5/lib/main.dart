@@ -27,7 +27,7 @@ class Exercicio5 extends StatelessWidget {
         body: ListView.builder(
           itemCount: nomeFilmes.length,
           itemBuilder: (context, index) {
-            if (MediaQuery.of(context).size.width * 1 < 450) {
+            if (MediaQuery.of(context).size.width * 1 > 450) 
               return Card(
                 child: Padding(
                   padding: const EdgeInsets.all(8.0),
@@ -68,47 +68,7 @@ class Exercicio5 extends StatelessWidget {
                 ),
               );
 
-            } else {
-              return Card(
-                child: Padding(
-                  padding: const EdgeInsets.all(8.0),
-                  child: Row(
-                    crossAxisAlignment: CrossAxisAlignment.start,
-                    children: [
-                      Image.asset(
-                        'images/filme$index.jpg',
-                        width: 100,
-                        height: 100,
-                      ),
-                      SizedBox(width: 16),
-                      Expanded(
-                        child: Column(
-                          crossAxisAlignment: CrossAxisAlignment.start,
-                          children: [
-                            Text(
-                              nomeFilmes[index].toString(),
-                              style: TextStyle(
-                                fontSize: 18,
-                                fontWeight: FontWeight.bold,
-                              ),
-                            ),
-                            SizedBox(height: 8),
-                            ElevatedButton(
-                              onPressed: () => {},
-                              style: ElevatedButton.styleFrom(
-                                backgroundColor: Colors.purple,
-                                foregroundColor: Colors.white,
-                              ),
-                              child: Text('Ver trailer'),
-                            ),
-                          ],
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-              );
-            }
+          
           },
         ),
       ),
