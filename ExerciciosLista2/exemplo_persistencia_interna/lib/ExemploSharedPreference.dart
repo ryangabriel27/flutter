@@ -1,4 +1,3 @@
-import 'package:exemplo_persistencia_interna/main.dart';
 import 'package:flutter/material.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
@@ -10,7 +9,12 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
-      title: "Usando SharedPreferences",
+      theme: ThemeData(
+        brightness: Brightness.light, // Define o tema claro como padrão
+      ),
+      darkTheme: ThemeData(
+        brightness: Brightness.dark, // Define o tema escuro
+      ),
       home: HomePage(),
     );
   }
@@ -28,38 +32,41 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     super.initState();
-    _loadPreferences(); // Carrega as preferências compartilhadas ao iniciar a tela
+    _loadPreferences();
   }
 
   Future<void> _loadPreferences() async {
-    _prefs = await SharedPreferences
-        .getInstance(); // Obtém as preferências compartilhadas
+    _prefs = await SharedPreferences.getInstance();
     setState(() {
-      _darkMode = _prefs.getBool('darkMode') ??
-          false; // Obtém o estado atual do tema escuro ou define como falso se não houver valor
+      _darkMode = _prefs.getBool('darkMode') ?? false;
     });
   }
 
   Future<void> _toggleDarkMode() async {
     setState(() {
-      _darkMode = !_darkMode; // Inverte o estado do tema escuro
+      _darkMode = !_darkMode;
     });
-    await _prefs.setBool('darkMode',
-        _darkMode); // Salva o estado do tema escuro nas preferências compartilhadas
+    await _prefs.setBool('darkMode', _darkMode);
   }
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      appBar: AppBar(
-        title: Text('Armazenamento Interno'), // Título da barra de aplicativos
-      ),
-      body: Center(
-        child: Switch(
-          value:
-              _darkMode, // Valor do interruptor baseado no estado atual do tema escuro
-          onChanged: (value) =>
-              _toggleDarkMode(), // Método chamado quando o interruptor é alterado
+    return AnimatedTheme(
+      data: _darkMode
+          ? ThemeData.dark()
+          : ThemeData.light(), // Define o tema com base no modo escuro
+      duration: Duration(milliseconds: 500), // Define a duração da transição
+      child: Scaffold(
+        appBar: AppBar(
+          title: Text('Armazenamento Interno'),
+        ),
+        body: Center(
+          child: Switch(
+            value: _darkMode,
+            onChanged: (value) {
+              _toggleDarkMode();
+            },
+          ),
         ),
       ),
     );
