@@ -88,7 +88,7 @@ class _TaskListState extends State<TaskList> {
                       hintText: 'Digite a tarefa'), // Dica no campo de entrada
                 ),
                 actions: <Widget>[
-                  TextButton(
+                  TextButton(-
                     onPressed: () {
                       setState(() {
                         tasks.add(

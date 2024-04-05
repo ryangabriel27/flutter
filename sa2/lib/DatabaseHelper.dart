@@ -1,13 +1,13 @@
+import 'package:flutter/rendering.dart';
 import 'package:path/path.dart';
 import 'package:sa2/Model/Cadastro.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {
-  static const String DATABASE_NAME = 'users.db';
-  static const String TABLE_NAME = 'users';
+  static const String DATABASE_NAME = 'usuarios.db';
+  static const String TABLE_NAME = 'usuarios';
   static const String CREATE_CONTACTS_TABLE_SCRIPT =
-      "CREATE TABLE users(id SERIAL PRIMARY KEY, name TEXT, email TEXT, password TEXT)";
-
+      "CREATE TABLE usuarios(id SERIAL PRIMARY KEY, usuario TEXT, email TEXT, senha TEXT)";
   Future<Database> _getDatabase() async {
     return openDatabase(join(await getDatabasesPath(), DATABASE_NAME),
         onCreate: ((db, version) {
@@ -19,11 +19,32 @@ class DatabaseHelper {
   Future<void> create(Cadastro model) async {
     try {
       final Database db = await _getDatabase();
-      await db.insert(
-          TABLE_NAME, model.toMap()); // Insere o contato no banco de dados
+      await db.insert(TABLE_NAME, model.toMap());
+      // Insere o cadastro no banco de dados
+      print("Cadastrado com sucesso");
     } catch (ex) {
       print(ex);
       return;
+    }
+  }
+
+  Future<bool> login(String nome, String senha) async {
+    try {
+      final Database db = await _getDatabase();
+      var res = await db.rawQuery(
+          "SELECT * FROM usuarios WHERE usuario = $nome AND senha = $senha");
+      if (res.isNotEmpty) {
+        // Verifica se o retorno não é vazio
+        print("Usuario existe, login feito!"); // Login
+        return true;
+      } else {
+        print(res);
+        print("Usuário e/ou senha incorreta!");
+        return false;
+      }
+    } catch (ex) {
+      print(ex);
+      return false;
     }
   }
 
