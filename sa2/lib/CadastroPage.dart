@@ -64,7 +64,7 @@ class _CadastroPageState extends State<CadastroPage> {
     // Função que verifica se há erros e caso não cadastra o usuario no banco
     if (usuario.isNotEmpty && senha.isNotEmpty && email.isNotEmpty) {
       Cadastro novoCadastro = Cadastro(
-          nome: usuario.trim(), senha: senha.trim(), email: email.trim());
+          usuario: usuario.trim(), senha: senha.trim(), email: email.trim());
 
       dbHelper.create(novoCadastro).then((value) {
         // Se o cadastro for bem-sucedido, exibe um dialog de feedback

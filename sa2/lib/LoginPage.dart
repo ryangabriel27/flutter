@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:sa2/CadastroPage.dart';
 import 'package:sa2/DatabaseHelper.dart';
-
-import 'HomePage.dart';
+import 'package:sa2/HomePage.dart';
 
 class LoginPage extends StatefulWidget {
   @override
@@ -62,9 +61,10 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void login(String usuario, String senha) {
+  void login (String usuario, String senha) async{
     if (usuario.isNotEmpty && senha.isNotEmpty) {
-      if (dbHelper.login(usuario, senha) == true) {
+      var acesso = await dbHelper.login(usuario.trim(), senha.trim());
+      if (acesso == true) {
         showDialog(
           context: context,
           builder: (BuildContext context) {
@@ -87,6 +87,8 @@ class _LoginPageState extends State<LoginPage> {
             );
           },
         );
+      } else {
+        print("não entrou no IF");
       }
     }
   }

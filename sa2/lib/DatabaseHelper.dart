@@ -7,7 +7,8 @@ class DatabaseHelper {
   static const String DATABASE_NAME = 'usuarios.db';
   static const String TABLE_NAME = 'usuarios';
   static const String CREATE_CONTACTS_TABLE_SCRIPT =
-      "CREATE TABLE usuarios(id SERIAL PRIMARY KEY, usuario TEXT, email TEXT, senha TEXT)";
+      "CREATE TABLE usuarios (id INTEGER PRIMARY KEY AUTOINCREMENT, usuario TEXT, email TEXT, senha TEXT)";
+
   Future<Database> _getDatabase() async {
     return openDatabase(join(await getDatabasesPath(), DATABASE_NAME),
         onCreate: ((db, version) {
@@ -20,7 +21,7 @@ class DatabaseHelper {
     try {
       final Database db = await _getDatabase();
       await db.insert(TABLE_NAME, model.toMap());
-      // Insere o cadastro no banco de dados
+      //Insere o cadastro no banco de dados
       print("Cadastrado com sucesso");
     } catch (ex) {
       print(ex);
@@ -31,8 +32,7 @@ class DatabaseHelper {
   Future<bool> login(String nome, String senha) async {
     try {
       final Database db = await _getDatabase();
-      var res = await db.rawQuery(
-          "SELECT * FROM usuarios WHERE usuario = $nome AND senha = $senha");
+      var res = await db.rawQuery("SELECT * FROM usuarios");
       if (res.isNotEmpty) {
         // Verifica se o retorno não é vazio
         print("Usuario existe, login feito!"); // Login
