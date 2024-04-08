@@ -1,6 +1,7 @@
 import 'package:flutter/rendering.dart';
 import 'package:path/path.dart';
 import 'package:sa2/Model/Cadastro.dart';
+import 'package:shared_preferences/shared_preferences.dart';
 import 'package:sqflite/sqflite.dart';
 
 class DatabaseHelper {
@@ -29,10 +30,58 @@ class DatabaseHelper {
     }
   }
 
+  
+
+  Future<void> salvaId(String nome, String senha) async {
+    try {
+      final Database db = await _getDatabase();
+      var res = await db.rawQuery(
+          "SELECT id FROM usuarios WHERE usuario = ? AND senha = ?",
+          [nome, senha]);
+      if (res.isNotEmpty) {
+        // Obtém o ID do usuário a partir da consulta
+        dynamic idUsuario = res.first['id'];
+        if (idUsuario != null && idUsuario is int) {
+          // Salvando o ID do usuário no SharedPreferences
+          SharedPreferences prefs = await SharedPreferences.getInstance();
+          prefs.setInt('userID', idUsuario);
+
+          print("Usuário encontrado, ID salvo: $idUsuario");
+        } else {
+          print("Erro: ID do usuário não encontrado na consulta.");
+        }
+      } else {
+        print("Usuário e/ou senha incorreta!");
+      }
+    } catch (ex) {
+      print("Erro ao salvar ID do usuário: $ex");
+    }
+  }
+
+  Future<Object?> getUsuario(int id) async {
+    try {
+      final Database db = await _getDatabase();
+      var res = await db
+          .rawQuery("SELECT usuario FROM usuarios WHERE id = ?", [id]);
+      if (res.isNotEmpty) {
+        // Retorna o nome do usuário se encontrado
+        return res.first['usuario'];
+      } else {
+        // Retorna uma string vazia ou null se o usuário não for encontrado
+        return null;
+      }
+    } catch (ex) {
+      print("Erro ao obter o nome do usuário por ID: $ex");
+      return null;
+    }
+  }
+
   Future<bool> login(String nome, String senha) async {
     try {
       final Database db = await _getDatabase();
-      var res = await db.rawQuery("SELECT * FROM usuarios");
+      var res = await db.rawQuery(
+          "SELECT * FROM usuarios WHERE usuario = ? AND senha = ?",
+          [nome, senha]);
       if (res.isNotEmpty) {
         // Verifica se o retorno não é vazio
         print("Usuario existe, login feito!"); // Login

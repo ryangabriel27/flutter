@@ -61,10 +61,11 @@ class _LoginPageState extends State<LoginPage> {
     );
   }
 
-  void login (String usuario, String senha) async{
+  void login(String usuario, String senha) async {
     if (usuario.isNotEmpty && senha.isNotEmpty) {
       var acesso = await dbHelper.login(usuario.trim(), senha.trim());
       if (acesso == true) {
+        dbHelper.salvaId(usuario.trim(), senha.trim());
         showDialog(
           context: context,
           builder: (BuildContext context) {
