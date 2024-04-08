@@ -30,8 +30,6 @@ class DatabaseHelper {
     }
   }
 
-  
-
   Future<void> salvaId(String nome, String senha) async {
     try {
       final Database db = await _getDatabase();
@@ -44,7 +42,8 @@ class DatabaseHelper {
         if (idUsuario != null && idUsuario is int) {
           // Salvando o ID do usuário no SharedPreferences
           SharedPreferences prefs = await SharedPreferences.getInstance();
-          prefs.setInt('userID', idUsuario);
+          prefs.setInt('userID',
+              idUsuario); // Define a int do sharedPreferences seja igual ao id do usuário logado
 
           print("Usuário encontrado, ID salvo: $idUsuario");
         } else {
@@ -55,24 +54,6 @@ class DatabaseHelper {
       }
     } catch (ex) {
       print("Erro ao salvar ID do usuário: $ex");
-    }
-  }
-
-  Future<Object?> getUsuario(int id) async {
-    try {
-      final Database db = await _getDatabase();
-      var res = await db
-          .rawQuery("SELECT usuario FROM usuarios WHERE id = ?", [id]);
-      if (res.isNotEmpty) {
-        // Retorna o nome do usuário se encontrado
-        return res.first['usuario'];
-      } else {
-        // Retorna uma string vazia ou null se o usuário não for encontrado
-        return null;
-      }
-    } catch (ex) {
-      print("Erro ao obter o nome do usuário por ID: $ex");
-      return null;
     }
   }
 
@@ -114,37 +95,6 @@ class DatabaseHelper {
     } catch (ex) {
       print(ex);
       return [];
-    }
-  }
-
-  // Método para atualizar um contato no banco de dados
-  Future<void> update(Cadastro model) async {
-    try {
-      final Database db = await _getDatabase();
-      await db.update(
-        TABLE_NAME,
-        model.toMap(),
-        where: "id = ?", // Condição para atualizar o contato com base no ID
-        whereArgs: [model.id],
-      );
-    } catch (ex) {
-      print(ex);
-      return;
-    }
-  }
-
-  // Método para excluir um contato do banco de dados
-  Future<void> delete(int id) async {
-    try {
-      final Database db = await _getDatabase();
-      await db.delete(
-        TABLE_NAME,
-        where: "id = ?", // Condição para excluir o contato com base no ID
-        whereArgs: [id],
-      );
-    } catch (ex) {
-      print(ex);
-      return;
     }
   }
 }

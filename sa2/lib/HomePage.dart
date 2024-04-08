@@ -36,8 +36,8 @@ class _HomePageState extends State<HomePage> {
     // Função que carrega as preferências
     _prefs = await SharedPreferences.getInstance();
     setState(() {
-      userID =
-          _prefs.getInt('userID') ?? -1; // Identifica o id do usuário logado
+      userID = _prefs.getInt('userID') ??
+          -1; // Pega o int do sharedpreferences para saber qual o id do usuário logado
       _darkMode = _prefs.getBool('darkMode_$userID') ??
           false; // Verifica se o modo escuro foi ativo
       _fontSize = _prefs.getDouble('fontSize_$userID') ??
@@ -97,7 +97,7 @@ class _HomePageState extends State<HomePage> {
               Container(
                   // Container com a opção para habilitar ou desabilitar o modo escuro
                   child: Padding(
-                padding: EdgeInsets.fromLTRB(10, 0, 10, 0),
+                padding: EdgeInsets.all(16.0),
                 child: Row(
                   children: [
                     Text(
@@ -123,10 +123,11 @@ class _HomePageState extends State<HomePage> {
                       style: TextStyle(fontSize: selectedFontSize),
                     ),
                     DropdownButton<double>(
-                      value: selectedFontSize,
+                      // Caixa de seleção com os tamanhos disponiveis
+                      value: selectedFontSize, // O valor selecionado será o tamanho da fonte
                       items: fontSizes.map((double size) {
                         return DropdownMenuItem<double>(
-                          value: size,
+                          value: size, 
                           child: Text(
                             size.toString(),
                             style: TextStyle(fontSize: selectedFontSize),

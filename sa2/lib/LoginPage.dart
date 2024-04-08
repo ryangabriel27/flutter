@@ -18,7 +18,7 @@ class _LoginPageState extends State<LoginPage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Login"),
+        title: Text("LOGIN"),
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
@@ -39,22 +39,36 @@ class _LoginPageState extends State<LoginPage> {
             SizedBox(height: 24.0),
             ElevatedButton(
               onPressed: () {
-                // Coloque aqui a lógica para processar o cadastro
-                String usuario = _usuarioController.text;
-                String senha = _senhaController.text;
+                // Login
+                String usuario = _usuarioController
+                    .text; // Pega oq estava escrito na caixa de texto
+                String senha = _senhaController
+                    .text; // Pega oq estava escrito na caixa de texto
 
-                login(usuario, senha);
+                login(usuario, senha); // Chama a função para fazer login
               },
               child: Text('Entrar'),
+              style: const ButtonStyle(
+                backgroundColor: MaterialStatePropertyAll<Color>(Colors.purple),
+                foregroundColor: MaterialStatePropertyAll<Color>(Colors.white),
+              ),
             ),
-            ElevatedButton(
-              onPressed: () {
-                // Coloque aqui a lógica para processar o cadastro
-                Navigator.push(context,
-                    MaterialPageRoute(builder: (context) => CadastroPage()));
-              },
-              child: Text('Cadastro'),
-            ),
+            Row(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text("Não tem uma conta? "),
+                TextButton(
+                  onPressed: () {
+                    // Coloque aqui a lógica para processar o cadastro
+                    Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => CadastroPage()));
+                  },
+                  child: Text('Cadastre-se'),
+                ),
+              ],
+            )
           ],
         ),
       ),
@@ -62,11 +76,17 @@ class _LoginPageState extends State<LoginPage> {
   }
 
   void login(String usuario, String senha) async {
+    // Função que realiza o login
     if (usuario.isNotEmpty && senha.isNotEmpty) {
-      var acesso = await dbHelper.login(usuario.trim(), senha.trim());
+      // Verifica se os campos estão vazios
+      var acesso = await dbHelper.login(
+          usuario.trim(), senha.trim()); // Verifica o login do usuário
       if (acesso == true) {
-        dbHelper.salvaId(usuario.trim(), senha.trim());
+        // Caso funcione
+        dbHelper.salvaId(
+            usuario.trim(), senha.trim()); // Armazena o id deste usuário
         showDialog(
+          // Avisa o usuário que o login foi feito corretamente
           context: context,
           builder: (BuildContext context) {
             return AlertDialog(
@@ -79,7 +99,9 @@ class _LoginPageState extends State<LoginPage> {
                     Navigator.of(context).pop();
                     Navigator.push(
                       context,
-                      MaterialPageRoute(builder: (context) => HomePage()),
+                      MaterialPageRoute(
+                          builder: (context) =>
+                              HomePage()), // Redireciona o usuario a pagina interna
                     );
                   },
                   child: Text('OK'),
@@ -89,7 +111,25 @@ class _LoginPageState extends State<LoginPage> {
           },
         );
       } else {
-        print("não entrou no IF");
+        showDialog(
+          // Avisa o usuário que o login não foi feito corretamente
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Erro no login'),
+              content: Text('Usuário e/ou senha incorreta!'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    // Fecha o dialog
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('OK'),
+                ),
+              ],
+            );
+          },
+        );
       }
     }
   }

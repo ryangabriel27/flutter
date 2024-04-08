@@ -53,6 +53,10 @@ class _CadastroPageState extends State<CadastroPage> {
                     email); // Chama função para cadastrar o usuario
               },
               child: Text('Cadastrar'),
+              style: const ButtonStyle(
+                backgroundColor: MaterialStatePropertyAll<Color>(Colors.purple),
+                foregroundColor: MaterialStatePropertyAll<Color>(Colors.white),
+              ),
             ),
           ],
         ),
