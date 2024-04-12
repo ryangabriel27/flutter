@@ -7,17 +7,17 @@ import 'package:sqflite/sqflite.dart';
 class DatabaseHelper {
   static const String DATABASE_NAME = 'usuarios.db';
   static const String TABLE_NAME = 'usuarios';
-  static const String CREATE_CONTACTS_TABLE_SCRIPT =
+  static const String CREATE_USERS_TABLE_SCRIPT =
       "CREATE TABLE usuarios (id INTEGER PRIMARY KEY AUTOINCREMENT, usuario TEXT, email TEXT, senha TEXT)";
 
   Future<Database> _getDatabase() async {
     return openDatabase(join(await getDatabasesPath(), DATABASE_NAME),
         onCreate: ((db, version) {
-      return db.execute(CREATE_CONTACTS_TABLE_SCRIPT);
+      return db.execute(CREATE_USERS_TABLE_SCRIPT);
     }), version: 1);
   }
 
-  // Método para criar um novo contato no banco de dados
+  // Método para criar um novo usuario no banco de dados
   Future<void> create(Cadastro model) async {
     try {
       final Database db = await _getDatabase();
@@ -31,6 +31,7 @@ class DatabaseHelper {
   }
 
   Future<void> salvaId(String nome, String senha) async {
+    // Método que guarda o id do usuário logado, e chama o SharedPreferences
     try {
       final Database db = await _getDatabase();
       var res = await db.rawQuery(
@@ -40,6 +41,7 @@ class DatabaseHelper {
         // Obtém o ID do usuário a partir da consulta
         dynamic idUsuario = res.first['id'];
         if (idUsuario != null && idUsuario is int) {
+          // Verifica se o id não é vazio e se ele é uma int
           // Salvando o ID do usuário no SharedPreferences
           SharedPreferences prefs = await SharedPreferences.getInstance();
           prefs.setInt('userID',
@@ -57,7 +59,19 @@ class DatabaseHelper {
     }
   }
 
+  Future<void> getNome(String nome) async {
+    // Método que guarda o id do usuário logado, e chama o SharedPreferences
+    try {
+      // Salvando o ID do usuário no SharedPreferences
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      prefs.setString('nomeUsuario', nome);
+    } catch (ex) {
+      print("Erro ao salvar ID do usuário: $ex");
+    }
+  }
+
   Future<bool> login(String nome, String senha) async {
+    // Método que faz o login, caso encontre um usuario com nome e senha iguais aos digitados pelo usuario
     try {
       final Database db = await _getDatabase();
       var res = await db.rawQuery(
@@ -75,26 +89,6 @@ class DatabaseHelper {
     } catch (ex) {
       print(ex);
       return false;
-    }
-  }
-
-  // Método para obter todos os contatos do banco de dados
-  Future<List<Cadastro>> getContacts() async {
-    try {
-      final Database db = await _getDatabase();
-      final List<Map<String, dynamic>> maps =
-          await db.query(TABLE_NAME); // Consulta todos os contatos na tabela
-
-      return List.generate(
-        maps.length,
-        (i) {
-          return Cadastro.fromMap(maps[
-              i]); // Converte os resultados da consulta para objetos ContactModel
-        },
-      );
-    } catch (ex) {
-      print(ex);
-      return [];
     }
   }
 }

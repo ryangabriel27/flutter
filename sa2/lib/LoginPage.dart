@@ -83,8 +83,8 @@ class _LoginPageState extends State<LoginPage> {
           usuario.trim(), senha.trim()); // Verifica o login do usuário
       if (acesso == true) {
         // Caso funcione
-        dbHelper.salvaId(
-            usuario.trim(), senha.trim()); // Armazena o id deste usuário
+        dbHelper.salvaId(usuario.trim(), senha.trim()); // Armazena o id deste usuário
+        dbHelper.getNome(usuario); 
         showDialog(
           // Avisa o usuário que o login foi feito corretamente
           context: context,

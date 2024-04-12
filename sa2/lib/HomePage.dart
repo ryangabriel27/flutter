@@ -26,6 +26,18 @@ class _HomePageState extends State<HomePage> {
   late double selectedFontSize =
       _fontSize; // Seleciona o tamanho padrão como padrão
 
+  String _fontFamily = 'Raleway'; // Tamanho padrão da fonte
+  List<String> fontFamilys = [
+    'Raleway',
+    'Pixelify Sans',
+    'SeymourOne',
+    'Jersey 20',
+    'Jacquard 24'
+  ]; // Opções de tamanho de fonte
+  late String selectedFontFamily =
+      _fontFamily; // Seleciona o tamanho padrão como padrão
+  String nomeUsuario = "";
+
   @override
   void initState() {
     super.initState();
@@ -38,6 +50,7 @@ class _HomePageState extends State<HomePage> {
     setState(() {
       userID = _prefs.getInt('userID') ??
           -1; // Pega o int do sharedpreferences para saber qual o id do usuário logado
+      nomeUsuario = _prefs.getString('nomeUsuario') ?? "";
       _darkMode = _prefs.getBool('darkMode_$userID') ??
           false; // Verifica se o modo escuro foi ativo
       _fontSize = _prefs.getDouble('fontSize_$userID') ??
@@ -47,7 +60,7 @@ class _HomePageState extends State<HomePage> {
     });
   }
 
-  Future<void> _toggleDarkMode() async {
+  Future<void> _ativaDarkMode() async {
     // Função que ativa o tema escuro
     setState(() {
       _darkMode = !_darkMode; // Inverte o valor da bool ao clicar no switch
@@ -57,11 +70,12 @@ class _HomePageState extends State<HomePage> {
     if (userID != -1) {
       // Verifica se o id é diferente do padrão
       _prefs = await SharedPreferences.getInstance();
-      await _prefs.setBool('darkMode_$userID', _darkMode);
+      await _prefs.setBool('darkMode_$userID',
+          _darkMode); // Define o valor para a boolean a o usuario com o Id especifico
     }
   }
 
-  Future<void> _changeFontSize(double newSize) async {
+  Future<void> _alterarTamanhoFonte(double newSize) async {
     // Função para mudar o tamanho da fonte
     setState(() {
       _fontSize = newSize;
@@ -71,7 +85,23 @@ class _HomePageState extends State<HomePage> {
     if (userID != -1) {
       // Verifica se o id é diferente do padrão
       SharedPreferences prefs = await SharedPreferences.getInstance();
-      await prefs.setDouble('fontSize_$userID', newSize);
+      await prefs.setDouble('fontSize_$userID',
+          newSize); // Define um novo valor para o tamanho da fonte do usuario com o Id especifico
+    }
+  }
+
+  Future<void> _alterarTipoFonte(String newFont) async {
+    // Função para mudar o tamanho da fonte
+    setState(() {
+      _fontFamily = newFont;
+    });
+
+    // Salvar a preferência do tamanho da fonte para o usuário específico no SharedPreferences
+    if (userID != -1) {
+      // Verifica se o id é diferente do padrão
+      SharedPreferences prefs = await SharedPreferences.getInstance();
+      await prefs.setString('fontFamily_$userID',
+          newFont); // Define um novo valor para o tamanho da fonte do usuario com o Id especifico
     }
   }
 
@@ -83,15 +113,19 @@ class _HomePageState extends State<HomePage> {
           appBar: AppBar(
             title: Text(
               "Home",
-              style: TextStyle(fontSize: selectedFontSize),
+              style: TextStyle(fontSize: selectedFontSize, fontFamily: selectedFontFamily),
             ),
           ),
           body: Column(
             children: [
               Container(
                 child: Text(
-                  "Bem-Vindo",
-                  style: TextStyle(fontSize: selectedFontSize),
+                  "Bem-Vindo, $nomeUsuario",
+                  style: TextStyle(
+                          fontSize: selectedFontSize,
+                          fontWeight: FontWeight.bold,
+                          fontFamily: selectedFontFamily
+                          ),
                 ),
               ),
               Container(
@@ -102,12 +136,12 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     Text(
                       "Modo Escuro: ",
-                      style: TextStyle(fontSize: selectedFontSize),
+                      style: TextStyle(fontSize: selectedFontSize, fontFamily: selectedFontFamily),
                     ),
                     Switch(
                       value: _darkMode,
                       onChanged: (value) {
-                        _toggleDarkMode();
+                        _ativaDarkMode();
                       },
                     )
                   ],
@@ -120,17 +154,18 @@ class _HomePageState extends State<HomePage> {
                   children: [
                     Text(
                       "Tamanho da fonte: ",
-                      style: TextStyle(fontSize: selectedFontSize),
+                      style: TextStyle(fontSize: selectedFontSize, fontFamily: selectedFontFamily),
                     ),
                     DropdownButton<double>(
                       // Caixa de seleção com os tamanhos disponiveis
-                      value: selectedFontSize, // O valor selecionado será o tamanho da fonte
+                      value:
+                          selectedFontSize, // O valor selecionado será o tamanho da fonte
                       items: fontSizes.map((double size) {
                         return DropdownMenuItem<double>(
-                          value: size, 
+                          value: size,
                           child: Text(
                             size.toString(),
-                            style: TextStyle(fontSize: selectedFontSize),
+                            style: TextStyle(fontSize: selectedFontSize, fontFamily: selectedFontFamily),
                           ),
                         );
                       }).toList(),
@@ -139,7 +174,41 @@ class _HomePageState extends State<HomePage> {
                           setState(() {
                             selectedFontSize = value;
                           });
-                          _changeFontSize(value);
+                          _alterarTamanhoFonte(value);
+                        }
+                      },
+                    ),
+                  ],
+                ),
+              ),
+              Container(
+                // Container com a opção para mudar o tamanho da fonte
+                padding: EdgeInsets.all(16.0),
+                child: Row(
+                  children: [
+                    Text(
+                      "Tipo da fonte: ",
+                      style: TextStyle(fontSize: selectedFontSize, fontFamily: selectedFontFamily),
+                    ),
+                    DropdownButton<String>(
+                      // Caixa de seleção com os tamanhos disponiveis
+                      value:
+                          selectedFontFamily, // O valor selecionado será o tamanho da fonte
+                      items: fontFamilys.map((String size) {
+                        return DropdownMenuItem<String>(
+                          value: size,
+                          child: Text(
+                            size,
+                            style: TextStyle(fontSize: selectedFontSize, fontFamily: selectedFontFamily),
+                          ),
+                        );
+                      }).toList(),
+                      onChanged: (String? value) {
+                        if (value != null) {
+                          setState(() {
+                            selectedFontFamily = value;
+                          });
+                          _alterarTipoFonte(value);
                         }
                       },
                     ),
