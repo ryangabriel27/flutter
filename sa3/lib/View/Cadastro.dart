@@ -67,13 +67,13 @@ class _CadastroPageState extends State<CadastroPage> {
   void cadastraUsuario(String usuario, String senha, String email) {
     // Função que verifica se há erros e caso não cadastra o usuario no banco
     if (usuario.isNotEmpty && senha.isNotEmpty && email.isNotEmpty) {
-      Usuario novoCadastro = Usuario(
+      Usuario novoUsuario = Usuario(
           nome: usuario.trim(),
           senha: senha.trim(),
           email: email.trim(),
           id: null);
       try {
-        dbHelper.create(novoCadastro).then((value) {
+        dbHelper.create(novoUsuario).then((value) {
           // Se o cadastro for bem-sucedido, exibe um dialog de feedback
           showDialog(
             context: context,
@@ -99,26 +99,26 @@ class _CadastroPageState extends State<CadastroPage> {
           );
         });
       } catch (e) {
-        //  Caso dê erro, não foi possivel cadastrar
-        showDialog(
-            context: context,
-            builder: (BuildContext context) {
-              return AlertDialog(
-                title: Text('Cadastro inválido'),
-                content: Text('Não foi possível cadastrar!'),
-                actions: <Widget>[
-                  TextButton(
-                    onPressed: () {
-                      // 
-                    },
-                    child: Text('OK'),
-                  ),
-                ],
-              );
-            },
-          );
         print(e);
+        showDialog(
+          context: context,
+          builder: (BuildContext context) {
+            return AlertDialog(
+              title: Text('Falha ao cadastrar'),
+              content: Text('Verifique as informações e faça novamente!'),
+              actions: <Widget>[
+                TextButton(
+                  onPressed: () {
+                    // Fecha o dialog e retorna para a página de login
+                    Navigator.of(context).pop();
+                  },
+                  child: Text('OK'),
+                ),
+              ],
+            );
+          },
+        );
       }
-    }
+    } else {}
   }
 }

@@ -6,7 +6,7 @@ class DatabaseHelper {
   static const String DATABASE_NAME = 'usuarios.db';
   static const String TABLE_NAME = 'usuarios';
   static const String CREATE_USERS_TABLE_SCRIPT =
-      "CREATE TABLE usuarios (id INTEGER PRIMARY KEY AUTOINCREMENT, usuario TEXT UNIQUE, email TEXT, senha TEXT)";
+      "CREATE TABLE usuarios (id INTEGER PRIMARY KEY AUTOINCREMENT, nome TEXT UNIQUE, email TEXT, senha TEXT)";
 
   Future<Database> _getDatabase() async {
     return openDatabase(join(await getDatabasesPath(), DATABASE_NAME),
@@ -32,7 +32,7 @@ class DatabaseHelper {
     try {
       final Database db = await _getDatabase();
       final List<Map<String, dynamic>> maps = await db.query(TABLE_NAME,
-          where: 'usuario = ? AND senha = ?',
+          where: 'nome = ? AND senha = ?',
           whereArgs: [usuario, senha]); // Consulta todos os contatos na tabela
 
       if (maps.isNotEmpty) {
@@ -50,7 +50,7 @@ class DatabaseHelper {
     try {
       final Database db = await _getDatabase();
       final List<Map<String, dynamic>> maps = await db.query(TABLE_NAME,
-          where: 'usuario = ? AND senha = ?',
+          where: 'nome = ? AND senha = ?',
           whereArgs: [nome, senha]); // Consulta todos os contatos na tabela
 
       if (maps.isNotEmpty) {

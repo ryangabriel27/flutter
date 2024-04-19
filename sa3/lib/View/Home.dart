@@ -3,9 +3,8 @@ import 'package:sa3/Controller/dbController.dart';
 import 'package:shared_preferences/shared_preferences.dart';
 
 class HomePage extends StatefulWidget {
-  String usuario;
   HomePage({required this.usuario});
-
+  String usuario;
   @override
   _HomePageState createState() => _HomePageState(
       usuario:
@@ -13,18 +12,10 @@ class HomePage extends StatefulWidget {
 }
 
 class _HomePageState extends State<HomePage> {
-  String usuario;
   _HomePageState({required this.usuario}); // Construtor
-
+  String usuario;
   late SharedPreferences _prefs; // SharedPreferences
   final dbHelper = DatabaseHelper(); // Instancia do dbController
-  // Lista de treinos
-  // bool _treinoBraco = false;
-  // bool _treinoPeito = false;
-  // bool _treinoPerna = false;
-  // bool _treinoCostas = false;
-  // bool _treinoOmbros = false;
-  // bool _treinoCorrida = false;
   List<bool> _treinos = [false, false, false, false, false, false];
   List<String> _nomeTreinos = [
     "Peito",
@@ -46,40 +37,25 @@ class _HomePageState extends State<HomePage> {
     // Função que carrega as preferências
     _prefs = await SharedPreferences.getInstance();
     setState(() {
-      for (var i = 0; i <= _treinos.length; i++) {
+      for (int i = 0; i < _treinos.length; i++) {
         _treinos[i] = _prefs.getBool('treino${i}_${usuario}') ?? false;
       }
-      _darkMode = _prefs.getBool("darkMode_${usuario}") ?? false;
-      // _treinoBraco = _prefs.getBool('treino1_${usuario}') ??
-      //     false; // Verifica se o treino foi concluido
-      // _treinoPeito = _prefs.getBool('treinoPeito_${usuario}') ??
-      //     false; // Verifica se o treino foi concluido
-      // _treinoPerna = _prefs.getBool('treinoPerna_${usuario}') ??
-      //     false; // Verifica se o treino foi concluido
-      // _treinoCostas = _prefs.getBool('treinoCosta_${usuario}') ??
-      //     false; // Verifica se o treino foi concluido
-      // _treinoOmbros = _prefs.getBool('treinoOmbros_${usuario}') ??
-      //     false; // Verifica se o treino foi concluido
-      // _treinoCorrida = _prefs.getBool('treinoCorrida_${usuario}') ??
-      //     false; // Verifica se o treino foi concluido
+      _darkMode = _prefs.getBool('darkMode_${usuario}') ?? false;
     });
   }
 
   Future<void> _marcaTreinoConcluido(int indice) async {
     // Função que marca o treino como concluído
     setState(() {
-      if (indice >= 0 && indice <= _treinos.length) {
-        _treinos[indice] = !_treinos[
-            indice]; // Inverte o valor da propriedade concluida. Se for true vira false e vice-versa
-      } // Inverte o valor da bool ao clicar no switch
+        _treinos[indice] = !_treinos[indice]; // Inverte o valor da propriedade concluida. Se for true vira false e vice-versa
     });
     // Salvar a preferência do treino para o usuário específico no SharedPreferences
     if (usuario.isNotEmpty) {
       _prefs = await SharedPreferences.getInstance();
       await _prefs.setBool(
           'treino${indice}_${usuario}',
-          _treinos[
-              indice]); // Define o valor para a boolean a o usuario com o Id especifico
+          _treinos[indice]
+          ); // Define o valor para a boolean a o usuario com o Id especifico
     }
   }
 
@@ -95,95 +71,6 @@ class _HomePageState extends State<HomePage> {
           _darkMode); // Define o valor para a boolean a o usuario com o Id especifico
     }
   }
-  // Future<void> _marcaTreinoBracoConcluido() async {
-  //   // Função que marca o treino como concluído
-  //   setState(() {
-  //     _treinoBraco =
-  //         !_treinoBraco; // Inverte o valor da bool ao clicar no switch
-  //   });
-  //   // Salvar a preferência do treino para o usuário específico no SharedPreferences
-  //   if (usuario.isNotEmpty) {
-  //     // Verifica se o id é diferente do padrão
-  //     _prefs = await SharedPreferences.getInstance();
-  //     await _prefs.setBool('treinoBraco_${usuario}',
-  //         _treinoBraco); // Define o valor para a boolean a o usuario com o Id especifico
-  //   }
-  // }
-
-  // Future<void> _marcaTreinoPeitoConcluido() async {
-  //   // Função que marca o treino como concluído
-  //   setState(() {
-  //     _treinoPeito =
-  //         !_treinoPeito; // Inverte o valor da bool ao clicar no switch
-  //   });
-  //   // Salvar a preferência do treino para o usuário específico no SharedPreferences
-  //   if (usuario.isNotEmpty) {
-  //     // Verifica se o id é diferente do padrão
-  //     _prefs = await SharedPreferences.getInstance();
-  //     await _prefs.setBool('treinoPeito_${usuario}',
-  //         _treinoPeito); // Define o valor para a boolean a o usuario com o Id especifico
-  //   }
-  // }
-
-  // Future<void> _marcaTreinoPernaConcluido() async {
-  //   // Função que marca o treino como concluído
-  //   setState(() {
-  //     _treinoPerna =
-  //         !_treinoPerna; // Inverte o valor da bool ao clicar no switch
-  //   });
-  //   // Salvar a preferência do treino para o usuário específico no SharedPreferences
-  //   if (usuario.isNotEmpty) {
-  //     // Verifica se o id é diferente do padrão
-  //     _prefs = await SharedPreferences.getInstance();
-  //     await _prefs.setBool('treinoPerna_${usuario}',
-  //         _treinoPerna); // Define o valor para a boolean a o usuario com o Id especifico
-  //   }
-  // }
-
-  // Future<void> _marcaTreinoOmbrosConcluido() async {
-  //   // Função que marca o treino como concluído
-  //   setState(() {
-  //     _treinoOmbros =
-  //         !_treinoOmbros; // Inverte o valor da bool ao clicar no switch
-  //   });
-  //   // Salvar a preferência do treino para o usuário específico no SharedPreferences
-  //   if (usuario.isNotEmpty) {
-  //     // Verifica se o id é diferente do padrão
-  //     _prefs = await SharedPreferences.getInstance();
-  //     await _prefs.setBool('treinoOmbros_${usuario}',
-  //         _treinoOmbros); // Define o valor para a boolean a o usuario com o Id especifico
-  //   }
-  // }
-
-  // Future<void> _marcaTreinoCorridaConcluido() async {
-  //   // Função que marca o treino como concluído
-  //   setState(() {
-  //     _treinoCorrida =
-  //         !_treinoCorrida; // Inverte o valor da bool ao clicar no switch
-  //   });
-  //   // Salvar a preferência do treino para o usuário específico no SharedPreferences
-  //   if (usuario.isNotEmpty) {
-  //     // Verifica se o id é diferente do padrão
-  //     _prefs = await SharedPreferences.getInstance();
-  //     await _prefs.setBool('treinoCorrida_${usuario}',
-  //         _treinoCorrida); // Define o valor para a boolean a o usuario com o Id especifico
-  //   }
-  // }
-
-  // Future<void> _marcaTreinoCostasConcluido() async {
-  //   // Função que marca o treino como concluído
-  //   setState(() {
-  //     _treinoCostas =
-  //         !_treinoCostas; // Inverte o valor da bool ao clicar no switch
-  //   });
-  //   // Salvar a preferência do treino para o usuário específico no SharedPreferences
-  //   if (usuario.isNotEmpty) {
-  //     // Verifica se o id é diferente do padrão
-  //     _prefs = await SharedPreferences.getInstance();
-  //     await _prefs.setBool('treinoCostas_${usuario}',
-  //         _treinoCostas); // Define o valor para a boolean a o usuario com o Id especifico
-  //   }
-  // }
 
   @override
   Widget build(BuildContext context) {
@@ -199,39 +86,60 @@ class _HomePageState extends State<HomePage> {
         body: Center(
           child: Column(
             children: [
-              ListView.builder(
-                itemCount: _treinos.length,
-                itemBuilder: (context, index) {
-                  return ListTile(
-                    title: Text("Treino de ${_nomeTreinos[index]}"),
-                    leading: Checkbox(
-                      value: _treinos[index],
-                      onChanged: (value) {
-                        _marcaTreinoConcluido(index);
-                        if (_treinos[index]) {
-                          showDialog(
-                            // Notifica o usuario
-                            context: context,
-                            builder: (context) => AlertDialog(
-                              title: Text('Concluido'),
-                              content: Text('Treino feito, Parabéns!!'),
-                              actions: [
-                                TextButton(
-                                  onPressed: () {
-                                    Navigator.pop(
-                                        context); // Fecha o AlertDialog
-                                  },
-                                  child: Text('OK'),
+              Container(
+                child: Expanded(
+                  child: ListView.builder(
+                    itemCount: _treinos.length,
+                    itemBuilder: (context, index) {
+                      return ListTile(
+                        title: Text("Treino de ${_nomeTreinos[index]}"),
+                        leading: Checkbox(
+                          value: _treinos[index],
+                          onChanged: (value) {
+                            _marcaTreinoConcluido(index);
+                            if (_treinos[index]) {
+                              showDialog(
+                                // Notifica o usuario
+                                context: context,
+                                builder: (context) => AlertDialog(
+                                  title: Text('Concluido'),
+                                  content: Text('Treino feito, Parabéns!!'),
+                                  actions: [
+                                    TextButton(
+                                      onPressed: () {
+                                        Navigator.pop(context); // Fecha o AlertDialog
+                                      },
+                                      child: Text('OK'),
+                                    ),
+                                  ],
                                 ),
-                              ],
-                            ),
-                          );
-                        }
-                      },
+                              );
+                            }
+                          },
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ),
+              Container(
+                  // Container com a opção para habilitar ou desabilitar o modo escuro
+                  child: Padding(
+                padding: EdgeInsets.all(16.0),
+                child: Row(
+                  children: [
+                    Text(
+                      "Modo Escuro: "
                     ),
-                  );
-                },
-              )
+                    Switch(
+                      value: _darkMode,
+                      onChanged: (value) {
+                        _ativarModoEscuro();
+                      },
+                    )
+                  ],
+                ),
+              )),
             ],
           ),
         ),

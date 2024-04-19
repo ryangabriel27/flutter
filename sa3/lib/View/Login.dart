@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:sa3/Controller/dbController.dart';
 import 'package:sa3/Model/usuario.dart';
 import 'package:sa3/View/Cadastro.dart';
@@ -12,8 +11,6 @@ class LoginPage extends StatefulWidget {
 
 class _LoginPageState extends State<LoginPage> {
   final dbHelper = DatabaseHelper();
-  bool _loading = false;
-  final _formKey = GlobalKey<FormState>();
 
   final TextEditingController _usuarioController = TextEditingController();
   final TextEditingController _senhaController = TextEditingController();
@@ -26,88 +23,71 @@ class _LoginPageState extends State<LoginPage> {
       ),
       body: Padding(
         padding: EdgeInsets.all(16.0),
-        child: Form(
-          key: _formKey,
-          child: SingleChildScrollView(
-            child: Column(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.stretch,
+          children: <Widget>[
+            SizedBox(height: 12.0),
+            TextField(
+              controller: _usuarioController,
+              decoration: InputDecoration(labelText: 'Usuario'),
+            ),
+            SizedBox(height: 12.0),
+            TextField(
+              controller: _senhaController,
+              decoration: InputDecoration(labelText: 'Senha'),
+              obscureText: true,
+            ),
+            SizedBox(height: 24.0),
+            ElevatedButton(
+              onPressed: () {
+                // Login
+                String usuario = _usuarioController
+                    .text; // Pega oq estava escrito na caixa de texto
+                String senha = _senhaController
+                    .text; // Pega oq estava escrito na caixa de texto
+
+                _login(usuario, senha); // Chama a função para fazer login
+              },
+              child: Text('Entrar'),
+              style: const ButtonStyle(
+                backgroundColor: MaterialStatePropertyAll<Color>(Colors.purple),
+                foregroundColor: MaterialStatePropertyAll<Color>(Colors.white),
+              ),
+            ),
+            Row(
               mainAxisAlignment: MainAxisAlignment.center,
-              children: <Widget>[
-                Text(
-                  'Login',
-                  style: TextStyle(
-                    fontSize: 24,
-                    fontWeight: FontWeight.bold,
-                  ),
-                ),
-                SizedBox(height: 20),
-                TextFormField(
-                  controller: _usuarioController,
-                  decoration: InputDecoration(labelText: 'Usuario'),
-                  validator: (value) {
-                    if (value == null || value.trim().isEmpty) {
-                      return 'Por favor, insira seu usuario';
-                    }
-                    return null;
-                  },
-                  inputFormatters: [
-                    FilteringTextInputFormatter.deny(RegExp(r'[0-9]')),
-                  ],
-                ),
-                SizedBox(height: 20),
-                TextFormField(
-                  controller: _senhaController,
-                  decoration: InputDecoration(labelText: 'Senha'),
-                  obscureText: true,
-                  validator: (value) {
-                    if (value?.trim().isEmpty ?? true) {
-                      return 'Por favor, insira sua senha';
-                    }
-                    return null;
-                  },
-                ),
-                SizedBox(height: 20),
-                _loading
-                    ? CircularProgressIndicator()
-                    : ElevatedButton(
-                        onPressed:
-                            _login,
-                        child: Text('Acessar'),
-                      ),
-                SizedBox(height: 20),
+              children: [
+                Text("Não tem uma conta? "),
                 TextButton(
                   onPressed: () {
+                    // Coloque aqui a lógica para processar o cadastro
                     Navigator.push(
-                      context,
-                      MaterialPageRoute(builder: (context) => CadastroPage()),
-                    );
+                        context,
+                        MaterialPageRoute(builder: (context) => CadastroPage()));
                   },
-                  child: Text('Não tem uma conta? Cadastre-se'),
+                  child: Text('Cadastre-se'),
                 ),
               ],
-            ),
-          ),
+            )
+          ],
         ),
       ),
     );
   }
 
-  void _login() async {
-    if (_formKey.currentState!.validate()) {
+  void _login(String usuario, String senha) async {
+    if (usuario.isNotEmpty && senha.isNotEmpty) {
       String usuario = _usuarioController.text;
       String senha = _senhaController.text;
 
-      setState(() {
-        _loading = true;
-      });
-
       DatabaseHelper dbControl = DatabaseHelper();
       try {
-        Usuario? user = await dbControl.getUsuario(usuario.trim(), senha.trim());
-        if (user != null) {
+        var acesso = await dbHelper.login(usuario, senha);
+        if (acesso) {
           Navigator.push(
             context,
             MaterialPageRoute(
-              builder: (context) => HomePage(usuario: user.nome.trim()),
+              builder: (context) => HomePage(usuario: usuario.trim()),
             ),
           );
         } else {
@@ -120,10 +100,6 @@ class _LoginPageState extends State<LoginPage> {
         ScaffoldMessenger.of(context).showSnackBar(SnackBar(
           content: Text('Erro durante o login. Tente novamente mais tarde.'),
         ));
-      } finally {
-        setState(() {
-          _loading = false;
-        });
       }
     }
   }
