@@ -3,7 +3,18 @@ class Produtos {
   final double preco;
   final String categoria;
 
+
   Produtos({required this.nome, required this.preco, required this.categoria});
+
+
+  factory Produtos.fromJson(Map<String, dynamic> json) {
+    return Produtos(
+      nome: json['nome'],
+      preco: json['preco'],
+      categoria: json['categoria'],
+    );
+  }
+
 
   Map<String, dynamic> toJson() {
     return {
@@ -12,9 +23,5 @@ class Produtos {
       'categoria': categoria,
     };
   }
-
-  factory Produtos.fromJson(Map<String, dynamic> map) {
-    return Produtos(
-        nome: map['nome'], preco: map['preco'], categoria: map['categoria']);
-  }
 }
+
