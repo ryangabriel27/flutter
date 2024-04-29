@@ -1,5 +1,6 @@
 import 'package:exemplo_persistencia_json/Controller/produtos_controller.dart';
 import 'package:exemplo_persistencia_json/Model/Produtos.dart';
+import 'package:exemplo_persistencia_json/View/DetalhesProdutoPage.dart';
 import 'package:flutter/material.dart';
 
 class HomePage extends StatefulWidget {
@@ -59,6 +60,14 @@ class _HomePageState extends State<HomePage> {
                             final produto = _controller.produtos[index];
                             return ListTile(
                               title: Text(produto.nome),
+                              onTap: () => {
+                                Navigator.push(
+                                    context,
+                                    MaterialPageRoute(
+                                        builder: (context) =>
+                                            DetalhesProdutoPage(
+                                                produto: produto)))
+                              },
                               subtitle: Text(
                                   'Preço: ${produto.preco.toStringAsFixed(2)} - Categoria: ${produto.categoria}'),
                             );
@@ -70,25 +79,54 @@ class _HomePageState extends State<HomePage> {
                         );
                       }
                     })),
-            FloatingActionButton(onPressed: () {
-              showAboutDialog(context: context, children: [
-                Text('Nome:'),
-                TextField(controller: _nomeController,),
-                SizedBox(height: 10),
-                Text('Preço:'),
-                TextField(controller: _precoController,),
-                SizedBox(height: 10),
-                Text('Categoria:'),
-                TextField(controller: _categoriaController,),
-                SizedBox(height: 10),
-                SizedBox(height: 10),
-                ElevatedButton(
-                    onPressed: _adicionarProduto,
-                    child: Text('Adicionar Produto'))
-              ]);
-            }, child: Text("Adicionar produto"),)
           ],
         ),
+      ),
+      floatingActionButton: FloatingActionButton(
+        onPressed: () {
+          showDialog(
+            context: context,
+            builder: (context) {
+              return AlertDialog(
+                  title: Text('Adicionar Produto'),
+                  content: Column(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      TextField(
+                        controller: _nomeController,
+                        decoration:
+                            InputDecoration(labelText: 'Nome do Produto'),
+                      ),
+                      TextField(
+                        controller: _precoController,
+                        decoration:
+                            InputDecoration(labelText: 'Preço do Produto'),
+                      ),
+                      TextField(
+                        controller: _categoriaController,
+                        decoration:
+                            InputDecoration(labelText: 'Categoria do Produto'),
+                      ),
+                    ],
+                  ),
+                  actions: [
+                    ElevatedButton(
+                      child: Text('Cancelar'),
+                      onPressed: () {
+                        Navigator.of(context).pop();
+                      },
+                    ),
+                    ElevatedButton(
+                      child: Text('Adicionar'),
+                      onPressed: () {
+                        _adicionarProduto();
+                        Navigator.of(context).pop();
+                      },
+                    )
+                  ]);
+            },
+          );
+        },
       ),
     );
   }

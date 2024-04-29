@@ -1,27 +1,33 @@
 [
-        {
-            "nome": "CPU",
-            "preco": 1000.00,
-            "categoria": "Informatica" 
-        },
-        {
-            "nome": "Teclado",
-            "preco": 50.00,
-            "categoria": "Informatica"
-        },
-        {
-            "nome": "Mouse",
-            "preco": 80.00,
-            "categoria": "Informatica"
-        },
-        {
-            "nome": "Monitor",
-            "preco": 2000.00,
-            "categoria": "Informatica"
-        },
-        {
-            "nome": "Gabinete",
-            "preco": 300.00,
-            "categoria": "Informatica"
-        } 
+    {
+        "nome": "Computador",
+        "preco": 1000.00,
+        "categoria": "Informatica",
+        "foto": "Foto"
+    },
+    {
+        "nome": "Gol",
+        "preco": 10000.00,
+        "categoria": "Veículo"
+    },
+    {
+        "nome": "Mouse",
+        "preco": 80.00,
+        "categoria": "Periféricos"
+    },
+    {
+        "nome": "Iphone 12",
+        "preco": 2500.00,
+        "categoria": "Celular"
+    },
+    {
+        "nome": "Gabinete",
+        "preco": 300.00,
+        "categoria": "Informatica"
+    },
+    {
+        "nome": "Mesa",
+        "preco": 150.00,
+        "categoria": "Imóvel"
+    }
 ]
