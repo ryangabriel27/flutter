@@ -3,31 +3,36 @@
         "nome": "Computador",
         "preco": 1000.00,
         "categoria": "Informatica",
-        "foto": "Foto"
+        "foto": "assets/img/img1.jpg"
     },
     {
         "nome": "Gol",
         "preco": 10000.00,
-        "categoria": "Veículo"
+        "categoria": "Veículo",
+        "foto": "assets/img/img2.jpeg"
     },
     {
         "nome": "Mouse",
         "preco": 80.00,
-        "categoria": "Periféricos"
+        "categoria": "Periféricos",
+        "foto": "assets/img/img3.jpg"
     },
     {
         "nome": "Iphone 12",
         "preco": 2500.00,
-        "categoria": "Celular"
+        "categoria": "Celular",
+        "foto": "assets/img/img4.jpg"
     },
     {
         "nome": "Gabinete",
         "preco": 300.00,
-        "categoria": "Informatica"
+        "categoria": "Informatica",
+        "foto": "assets/img/5.webp"
     },
     {
-        "nome": "Mesa",
-        "preco": 150.00,
-        "categoria": "Imóvel"
+        "nome": "Tênis Nike dunk mid low fade",
+        "preco": 700.00,
+        "categoria": "Calçados",
+        "foto": "assets/img/img6.webp"
     }
 ]

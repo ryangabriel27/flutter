@@ -14,6 +14,7 @@ class DetalhesProdutoPage extends StatelessWidget {
       body: Center(
         child: Column(
           children: [
+            Image.asset(produto.foto),
             Text("Nome do produto: ${produto.nome}"),
             Text("Preço do produto: ${produto.preco}"),
             Text("Categoria do produto: ${produto.categoria}")

@@ -22,21 +22,6 @@ class _HomePageState extends State<HomePage> {
     _controller.loadProdutos();
   }
 
-  void _adicionarProduto() {
-    final nome = _nomeController.text;
-    final preco = double.tryParse(_precoController.text) ?? 0.0;
-    final categoria = _categoriaController.text;
-    if (nome.isNotEmpty && preco > 0 && categoria.isNotEmpty) {
-      setState(() {
-        _controller.adicionarProduto(
-            Produtos(nome: nome, preco: preco, categoria: categoria));
-        _controller.saveProdutos();
-      });
-      _nomeController.clear();
-      _precoController.clear();
-      _categoriaController.clear();
-    }
-  }
 
   @override
   Widget build(BuildContext context) {
@@ -119,7 +104,6 @@ class _HomePageState extends State<HomePage> {
                     ElevatedButton(
                       child: Text('Adicionar'),
                       onPressed: () {
-                        _adicionarProduto();
                         Navigator.of(context).pop();
                       },
                     )
