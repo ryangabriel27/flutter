@@ -44,6 +44,7 @@ class _HomePageState extends State<HomePage> {
                           itemBuilder: (context, index) {
                             final produto = _controller.produtos[index];
                             return ListTile(
+                              leading: Image.asset(produto.foto),
                               title: Text(produto.nome),
                               onTap: () => {
                                 Navigator.push(
