@@ -20,7 +20,7 @@ class MyApp extends StatelessWidget {
       home: HomeScreen(),
       debugShowCheckedModeBanner: false,
       routes: {
-        '/': (context) => HomeScreen(),
+        '/home': (context) => HomeScreen(),
         '/list':(context) => FilmeScreen(),
         '/cadastro':(context) => CadastroScreen()
       },
