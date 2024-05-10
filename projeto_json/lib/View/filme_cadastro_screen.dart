@@ -28,6 +28,12 @@ class _CadastroScreenState extends State<CadastroScreen> {
   File? _imageSelecionada;
 
   @override
+  void initState() {
+    // TODO: implement initState
+    _controller.loadJson();
+  }
+
+  @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
@@ -169,7 +175,6 @@ class _CadastroScreenState extends State<CadastroScreen> {
                     onPressed: () {
                       if (_formKey.currentState!.validate()) {
                         _cadastrarFilme();
-                        Navigator.pop(context);
                       }
                     },
                     child: Text("Cadastrar"),
@@ -191,24 +196,55 @@ class _CadastroScreenState extends State<CadastroScreen> {
       duracao: int.parse(_duracaoController.text),
       ano: int.parse(_anoController.text),
       classificacao: int.parse(_classificacaoController.text),
-      elenco: List.from(_elencoController.text.split(',')),
+      elenco: _elencoController.text,
       imagens: _imageSelecionada!.path,
     );
   }
 
+  void limpar() {
+    _nomeController.clear();
+    _categoriaController.clear();
+    _sinopseController.clear();
+    _duracaoController.clear();
+    _anoController.clear();
+    _classificacaoController.clear();
+    _elencoController.clear();
+    _imageSelecionada = null;
+    setState(() {});
+  }
+
   void _cadastrarFilme() {
     // Método para cadastrar filme no jSon!
-    // Chamar classe controller
-    _controller.loadJson();
 
-    _controller.adicionarFilme(getFilmes());
-    // SnackBar cadastrado com sucesso!
-    ScaffoldMessenger.of(context).showSnackBar(
-      const SnackBar(
-        content: Text('Filme cadastrado com sucesso!'),
-        duration: Duration(seconds: 2),
-      ),
-    );
+    bool verificaFilme = false;
+
+    for (int i = 0; i < _controller.listFilmes.length; i++) {
+      if (_nomeController.text == _controller.listFilmes[i].nome) {
+        verificaFilme = true;
+        break;
+      }
+    }
+
+    if (!verificaFilme) {
+      _controller.adicionarFilme(getFilmes());
+      _controller.salvarJson();
+      // SnackBar cadastrado com sucesso!
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Filme cadastrado com sucesso!'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+      limpar();
+    } else {
+      // SnackBar já cadastrado!
+      ScaffoldMessenger.of(context).showSnackBar(
+        const SnackBar(
+          content: Text('Filme já cadastrado!'),
+          duration: Duration(seconds: 2),
+        ),
+      );
+    }
   }
 
   Future<void> _tirarFoto() async {
