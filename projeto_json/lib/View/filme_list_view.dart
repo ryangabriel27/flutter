@@ -25,7 +25,7 @@ class _FilmeScreenState extends State<FilmeScreen> {
               future: _controller.loadJson(),
               builder: (context, snapshot) {
                 if (_controller.listFilmes.isEmpty) {
-                  return Center(
+                  return const Center(
                     child: CircularProgressIndicator(),
                   );
                 } else {
@@ -34,8 +34,7 @@ class _FilmeScreenState extends State<FilmeScreen> {
                     itemBuilder: (context, index) {
                       return ListTile(
                         title: Text(_controller.listFilmes[index].nome),
-                        subtitle: Text(_controller.listFilmes[index].categoria +
-                            " | ${_controller.listFilmes[index].duracao} min"),
+                        subtitle: Text("${_controller.listFilmes[index].categoria} | ${_controller.listFilmes[index].duracao} min"),
                         leading: Image.file(
                             File(_controller.listFilmes[index].imagens)),
                         onTap: () {},
