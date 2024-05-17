@@ -13,7 +13,6 @@ class FilmeScreen extends StatefulWidget {
 class _FilmeScreenState extends State<FilmeScreen> {
   // atributos
   FilmeController _controller = FilmeController();
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
