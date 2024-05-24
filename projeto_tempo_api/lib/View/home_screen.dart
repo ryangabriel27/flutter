@@ -70,7 +70,7 @@ class _HomeScreenState extends State<HomeScreen> {
                 : Column(children: [
                     Text(_controller.listWeather.last.city),
                     Text(_controller.listWeather.last.description),
-                    Text("${_controller.listWeather.last.temp - 273}"),
+                    Text("${(_controller.listWeather.last.temp - 273)}"),
                     Text("${_controller.listWeather.last.tempMin - 273}"),
                     Text("${_controller.listWeather.last.tempMax - 273}"),
                     IconButton(

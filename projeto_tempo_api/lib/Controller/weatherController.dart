@@ -17,4 +17,13 @@ class WeatherController {
         Weather.fromJson(await _service.getWeatherByLocation(lat, lon));
     listWeather.add(newWheater);
   }
+
+  Future<bool> findCity(String city) async {
+    Weather newWheater = Weather.fromJson(await _service.getWeather(city));
+    if (newWheater.city.isNotEmpty) {
+      return true;
+    } else {
+      return false;
+    }
+  }
 }
