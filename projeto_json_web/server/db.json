@@ -1,0 +1,68 @@
+{
+  "filmes": [
+    {
+      "id": "1",
+      "nome": "O Poderoso Chefao",
+      "categoria": "Drama",
+      "duracao": 175,
+      "ano": 1972,
+      "classificacao": 5
+    },
+    {
+      "id": "2",
+      "nome": "Forrest Gump",
+      "categoria": "Drama/Comedia",
+      "duracao": 142,
+      "ano": 1994,
+      "classificacao": 5
+    },
+    {
+      "id": "3",
+      "nome": "A Origem",
+      "categoria": "Ficcao Cientifica",
+      "duracao": 148,
+      "ano": 2010,
+      "classificacao": 5
+    },
+    {
+      "id": "4",
+      "nome": "Os Vingadores",
+      "categoria": "Acao",
+      "duracao": 143,
+      "ano": 2012,
+      "classificacao": 4
+    },
+    {
+      "id": "5",
+      "nome": "Parasita",
+      "categoria": "Thriller/Drama",
+      "duracao": 132,
+      "ano": 2019,
+      "classificacao": 5
+    },
+    {
+      "id": "6",
+      "nome": "O Senhor dos Aneis: A Sociedade do Anel",
+      "categoria": "Fantasia/Aventura",
+      "duracao": 178,
+      "ano": 2001,
+      "classificacao": 5
+    },
+    {
+      "id": "bbec",
+      "nome": "Harry Potter e a Pedra Filosofal",
+      "categoria": "Fantasia",
+      "duracao": 152,
+      "ano": 2001,
+      "classificacao": 10
+    },
+    {
+      "id": "ce65",
+      "nome": "Esposa de Mentirinha",
+      "categoria": "Comedia/Romance",
+      "duracao": 117,
+      "ano": 2011,
+      "classificacao": 12
+    }
+  ]
+}
