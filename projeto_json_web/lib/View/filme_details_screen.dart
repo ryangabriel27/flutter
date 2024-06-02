@@ -16,7 +16,9 @@ class FilmeDetailsScreen extends StatelessWidget {
           children: [
             Text("Nome do filme: ${filme.nome}"),
             Text("Ano do filme: ${filme.ano}"),
-            Text("Categoria do filme: ${filme.categoria}")
+            Text("Categoria do filme: ${filme.categoria}"),
+            Text("Duração do filme: ${filme.duracao}min"),
+            Text("Classificação do filme: ${filme.classificacao} /10 ★"),
           ],
         ),
       ),

@@ -1,6 +1,7 @@
 import 'dart:io';
 
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:projeto_json_web/Controller/filme_controller.dart';
 import 'package:projeto_json_web/Model/filme_model.dart';
 
@@ -79,6 +80,10 @@ class _CadastroScreenState extends State<CadastroScreen> {
                     decoration: InputDecoration(
                       labelText: 'Duração',
                     ),
+                    keyboardType: TextInputType.number,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.digitsOnly
+                    ],
                     validator: (value) {
                       if (value!.trim().isEmpty) {
                         return 'Por favor, insira a duração do filme em minutos';
@@ -95,6 +100,10 @@ class _CadastroScreenState extends State<CadastroScreen> {
                     decoration: InputDecoration(
                       labelText: 'Ano',
                     ),
+                    keyboardType: TextInputType.number,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.digitsOnly
+                    ],
                     validator: (value) {
                       if (value!.trim().isEmpty) {
                         return 'Por favor, insira o ano de lançamento do filme';
@@ -111,9 +120,13 @@ class _CadastroScreenState extends State<CadastroScreen> {
                     decoration: InputDecoration(
                       labelText: 'Classificação',
                     ),
+                    keyboardType: TextInputType.number,
+                    inputFormatters: <TextInputFormatter>[
+                      FilteringTextInputFormatter.digitsOnly
+                    ],
                     validator: (value) {
                       if (value!.trim().isEmpty) {
-                        return 'Por favor, insira a classificação etária do filme';
+                        return 'Por favor, insira a sua classificação de 0 a 10 do filme';
                       } else {
                         return null;
                       }
@@ -165,7 +178,8 @@ class _CadastroScreenState extends State<CadastroScreen> {
     bool verificaFilme = false;
 
     for (int i = 0; i < _controller.listFilmes.length; i++) {
-      if (_nomeController.text == _controller.listFilmes[i].nome) {
+      if (_nomeController.text.trim().toLowerCase() ==
+          _controller.listFilmes[i].nome.trim().toLowerCase()) {
         verificaFilme = true;
         break;
       }
@@ -194,5 +208,4 @@ class _CadastroScreenState extends State<CadastroScreen> {
       );
     }
   }
-
 }

@@ -23,4 +23,14 @@ class FilmeController {
       print('Error adding filme: $e');
     }
   }
+
+  Future<void> deleteFilme(String id) async {
+    try {
+      await _service.deleteFilme(id);
+      listFilmes.removeWhere((filme) => filme.id == id);
+      print('Filme deleted with id: $id');
+    } catch (e) {
+      print('Error deleting filme: $e');
+    }
+  }
 }

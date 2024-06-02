@@ -52,6 +52,16 @@ class _FilmeScreenState extends State<FilmeScreen> {
                                   " (${_controller.listFilmes[index].ano})"),
                               subtitle: Text(
                                   "${_controller.listFilmes[index].categoria} | ${_controller.listFilmes[index].duracao} min"),
+                              trailing: IconButton(
+                                icon: Icon(Icons.delete),
+                                onPressed: () async {
+                                  await _controller.deleteFilme(
+                                      _controller.listFilmes[index].id!);
+                                  setState(() {
+                                    _controller.listFilmes.removeAt(index);
+                                  });
+                                },
+                              ),
                               onTap: () {
                                 Navigator.push(
                                     context,

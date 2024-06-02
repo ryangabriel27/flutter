@@ -32,4 +32,13 @@ class FilmeService {
       throw Exception('Failed to create filme');
     }
   }
+
+  Future<void> deleteFilme(String id) async {
+    final url = Uri.parse('$baseUrl/$id');
+    final response = await http.delete(url);
+
+    if (response.statusCode != 200) {
+      throw Exception('Failed to delete filme');
+    }
+  }
 }
