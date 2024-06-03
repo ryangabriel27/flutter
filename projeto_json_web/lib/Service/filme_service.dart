@@ -3,7 +3,7 @@ import 'package:http/http.dart' as http;
 import 'package:projeto_json_web/Model/filme_model.dart';
 
 class FilmeService {
-  final String baseUrl = 'http://192.168.1.15:3000/filmes';
+  final String baseUrl = 'http://10.109.207.219:3000/filmes';
 
   Future<List<Filme>> getFilmes() async {
     final url = Uri.parse(baseUrl);
