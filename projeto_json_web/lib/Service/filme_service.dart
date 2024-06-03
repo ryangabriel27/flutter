@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/material.dart';
 import 'package:http/http.dart' as http;
 import 'package:projeto_json_web/Model/filme_model.dart';
 
@@ -24,6 +25,7 @@ class FilmeService {
     final response = await http.post(
       url,
       body: jsonEncode(filme.toJson()),
+      headers: {'Content-Type': 'application/json'},
     );
 
     if (response.statusCode == 201) {
