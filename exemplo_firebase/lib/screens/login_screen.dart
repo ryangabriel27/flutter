@@ -74,7 +74,14 @@ class _LoginScreenState extends State<LoginScreen> {
   Future<void> _login() async {
     if (formKey.currentState!.validate()) {
       try {
-        User? user = await _auth.signIn(_emailController.text, _passwordController.text);
+        User? user =
+            await _auth.signIn(_emailController.text, _passwordController.text);
+        if (user != null) {
+          Navigator.pushReplacement(
+            context,
+            MaterialPageRoute(builder: (context) => TodoListScreen()),
+          );
+        }
       } catch (e) {
         ScaffoldMessenger.of(context).showSnackBar(
           SnackBar(
