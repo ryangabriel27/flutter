@@ -1,3 +1,4 @@
+import 'package:exemplo_firebase/screens/todolist_screen.dart';
 import 'package:exemplo_firebase/services/auth_firebase.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
@@ -79,7 +80,10 @@ class _LoginScreenState extends State<LoginScreen> {
         if (user != null) {
           Navigator.pushReplacement(
             context,
-            MaterialPageRoute(builder: (context) => TodoListScreen()),
+            MaterialPageRoute(
+                builder: (context) => TodoListScreen(
+                      user: user,
+                    )),
           );
         }
       } catch (e) {
