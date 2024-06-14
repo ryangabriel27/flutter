@@ -1,0 +1,48 @@
+{
+  "project_info": {
+    "project_number": "782039785245",
+    "project_id": "teste-firebase-tarde-ryaan",
+    "storage_bucket": "teste-firebase-tarde-ryaan.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:782039785245:android:27b9bbd84ffd4ee0da8bf4",
+        "android_client_info": {
+          "package_name": "br.com.ryan"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWMcrAq3o9Ih226H6l_sukWIaBmzJ5tE8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    },
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:782039785245:android:b35f8c2208baaf23da8bf4",
+        "android_client_info": {
+          "package_name": "br.com.ryangabriel"
+        }
+      },
+      "oauth_client": [],
+      "api_key": [
+        {
+          "current_key": "AIzaSyBWMcrAq3o9Ih226H6l_sukWIaBmzJ5tE8"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": []
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}

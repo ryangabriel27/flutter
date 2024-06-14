@@ -21,12 +21,14 @@ class TodolistController {
 
   // Listar
   Future<List<Todolist>> listar(String userId) async {
-    final result = await _firestore
+    //  Querysnapshot
+    QuerySnapshot querySnapshot = await _firestore
         .collection('todolist')
         .where('userId', isEqualTo: userId)
-        .orderBy('timestamp', descending: true)
         .get();
-    _list = result.docs.map((doc) => Todolist.fromJson(doc.data())).toList();
+    List<dynamic> result = querySnapshot.docs as List;
+
+    _list = result.map((doc) => Todolist.fromJson(doc.data(), doc.id)).toList();
     return _list;
   }
 }
