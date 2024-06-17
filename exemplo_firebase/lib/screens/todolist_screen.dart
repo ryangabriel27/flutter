@@ -51,11 +51,6 @@ class _TodoListScreenState extends State<TodoListScreen> {
         body: Center(
           child: Column(
             children: [
-              ListTile(
-                title: Text("Adicionar uma nova tarefa"),
-                leading: Icon(Icons.add),
-                onTap: () {},
-              ),
               Expanded(
                   child: FutureBuilder(
                       future: _getTodoList(widget.user.uid),

@@ -118,7 +118,7 @@ class _CadastroScreenState extends State<CadastroScreen> {
                   ),
                   TextFormField(
                     decoration: InputDecoration(
-                      labelText: 'Classificação',
+                      labelText: 'Nota',
                     ),
                     keyboardType: TextInputType.number,
                     inputFormatters: <TextInputFormatter>[

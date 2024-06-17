@@ -69,18 +69,21 @@ class CityDbService {
     }
   }
 
-  // Update city
   Future<void> update(CityDb city) async {
-    try {
-      final Database db = await _getDatabase();
-      await db.update(TABLE_NOME, city.toMap(),
-          where: 'cityname =?', whereArgs: [city.cityName, city.isFavorite]);
-      db.close(); // Atualiza o contato no banco de dados
-    } catch (ex) {
-      print(ex);
-      return;
-    }
+  try {
+    final Database db = await _getDatabase();
+    await db.update(
+      TABLE_NOME,
+      city.toMap(),
+      where: 'cityname = ?', // Condição para selecionar o registro a ser atualizado
+      whereArgs: [city.isFavorite], // Valor a ser substituído na condição
+    );
+    db.close(); // Fecha a conexão com o banco de dados
+  } catch (ex) {
+    print(ex);
+    throw ex; // Lança a exceção para que possa ser tratada em outro lugar, se necessário
   }
+}
 
   // Delete city
   Future<void> delete(CityDb city) async {
@@ -93,5 +96,14 @@ class CityDbService {
       print(ex);
       return;
     }
+  }
+
+  // get All favorite cities
+  Future<List<Map<String, dynamic>>> getAllFavoriteCities() async {
+    Database db = await _getDatabase();
+    List<Map<String, dynamic>> result =
+        await db.query(TABLE_NOME, where: 'isfavorite = ?', whereArgs: [1]);
+    db.close();
+    return result;
   }
 }

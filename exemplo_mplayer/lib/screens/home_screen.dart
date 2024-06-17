@@ -1,6 +1,7 @@
-import 'package:exemplo_mplayer/controllers/music_controller.dart';
-import 'package:exemplo_mplayer/screens/audio_screen.dart';
+import 'package:exemplo_mplayer/controllers/audio_controller.dart';
 import 'package:flutter/material.dart';
+
+import 'audio_screen.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -10,62 +11,71 @@ class HomeScreen extends StatefulWidget {
 }
 
 class _HomeScreenState extends State<HomeScreen> {
-  final MusicController _controller = MusicController();
+  final _controller = AudioController();
 
-  // initState
   @override
   void initState() {
+    // TODO: implement initState
     super.initState();
-    _buscarMusicas();
+    // _getList();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: Text("Music Player"),
-      ),
-      body: // FutureBuilder, listando todas as musicas disponiveis
-          Padding(
-        padding: EdgeInsets.all(12.0),
-        child: Center(
-          child: FutureBuilder(
-              future: _buscarMusicas(),
-              builder: (context, snapshot) {
-                if (snapshot.connectionState == ConnectionState.waiting) {
-                  return CircularProgressIndicator();
-                } else if (_controller.list.isEmpty) {
-                  return Center(child: Text("Nenhuma música disponível"));
-                } else {
-                  // Listbuilder
-                  return Expanded(
-                    child: ListView.builder(
-                        itemCount: _controller.list.length,
-                        itemBuilder: (context, index) {
-                          return ListTile(
-                              title: Text(_controller.list[index].title),
-                              subtitle: Text(_controller.list[index].artist),
-                              onTap: () {
-                                Navigator.pushReplacement(
-                                    context,
-                                    MaterialPageRoute(
-                                        builder: (context) => AudioScreen(
-                                          music: _controller.list[index]
-                                        )));
-                              });
-                        }),
-                  );
-                }
-              }),
+        title: const Text(
+          "TigerMusic",
+          style: TextStyle(
+            fontFamily: 'Roboto',
+            fontWeight: FontWeight.bold,
+            fontSize: 24,
+            color: Colors.white,
+          ),
         ),
+        centerTitle: true,
+        backgroundColor: Colors.deepPurple,
       ),
+      body: FutureBuilder(
+          future: _getList(),
+          builder: (context, snapshot) {
+            if (snapshot.connectionState == ConnectionState.waiting) {
+              return const Center(
+                child: CircularProgressIndicator(),
+              );
+            } else if (_controller.list.isEmpty) {
+              return const Center(
+                child: Text("Não há audios cadastrados"),
+              );
+            } else {
+              return ListView.builder(
+                itemCount: _controller.list.length,
+                itemBuilder: (context, index) {
+                  return ListTile(
+                    leading: Icon(Icons.album),
+                    title: Text(_controller.list[index].title),
+                    subtitle: Text(
+                        "${_controller.list[index].artist} - ${_controller.list[index].duration}"),
+                    onTap: () {
+                      Navigator.push(
+                        context,
+                        MaterialPageRoute(
+                            builder: (context) => AudioScreen(
+                                  audio: _controller.list[index],
+                                )),
+                      );
+                    },
+                  );
+                },
+              );
+            }
+          }),
     );
   }
 
-  Future<void> _buscarMusicas() async {
+  Future<void> _getList() async {
     try {
-      await _controller.fetchFromFirestore();
-      setState(() {});
+      _controller.fetchFromFireStore();
     } catch (e) {
       print(e.toString());
     }

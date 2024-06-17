@@ -1,14 +1,6 @@
 {
   "filmes": [
     {
-      "id": "1",
-      "nome": "O Poderoso Chefao",
-      "categoria": "Drama",
-      "duracao": 175,
-      "ano": 1972,
-      "classificacao": 10
-    },
-    {
       "id": "4",
       "nome": "Os Vingadores",
       "categoria": "Acao",
@@ -39,6 +31,14 @@
       "duracao": 101,
       "ano": 2013,
       "classificacao": 11
+    },
+    {
+      "id": "5c6c",
+      "nome": "Bad Boys IV",
+      "categoria": "Ação",
+      "duracao": 150,
+      "ano": 2024,
+      "classificacao": 10
     }
   ]
 }

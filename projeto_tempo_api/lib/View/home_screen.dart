@@ -53,9 +53,11 @@ class _HomeScreenState extends State<HomeScreen> {
                       Navigator.pushNamed(context, "/search");
                     },
                     child: Text("Search")),
-                ElevatedButton(onPressed: () {
-                  Navigator.pushNamed(context, "/favorites");
-                }, child: Text("Favorite")),
+                ElevatedButton(
+                    onPressed: () {
+                      Navigator.pushNamed(context, "/favorites");
+                    },
+                    child: Text("Favorite")),
               ],
             ),
             SizedBox(
@@ -70,9 +72,9 @@ class _HomeScreenState extends State<HomeScreen> {
                 : Column(children: [
                     Text(_controller.listWeather.last.city),
                     Text(_controller.listWeather.last.description),
-                    Text("${(_controller.listWeather.last.temp - 273)}"),
-                    Text("${_controller.listWeather.last.tempMin - 273}"),
-                    Text("${_controller.listWeather.last.tempMax - 273}"),
+                    Text("${(_controller.listWeather.last.temp - 273)} C°"),
+                    Text("${(_controller.listWeather.last.tempMin - 273)} C°"),
+                    Text("${(_controller.listWeather.last.tempMax - 273)} C°"),
                     IconButton(
                       icon: Icon(Icons.refresh),
                       onPressed: () {

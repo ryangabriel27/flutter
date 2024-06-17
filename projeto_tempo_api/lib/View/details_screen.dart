@@ -89,11 +89,11 @@ class _DetailsScreenState extends State<DetailsScreen> {
                     Text(_controller.listWeather.last.city),
                     Text(_controller.listWeather.last.description),
                     Text(
-                        "${(_controller.listWeather.last.temp - 273).toStringAsFixed(2)}"),
+                        "${(_controller.listWeather.last.temp - 273).toStringAsFixed(2)} C°"),
                     Text(
-                        "${(_controller.listWeather.last.tempMin - 273).toStringAsFixed(2)}"),
+                        "${(_controller.listWeather.last.tempMin - 273).toStringAsFixed(2)} C°"),
                     Text(
-                        "${(_controller.listWeather.last.tempMax - 273).toStringAsFixed(2)}"),
+                        "${(_controller.listWeather.last.tempMax - 273).toStringAsFixed(2)} C°"),
                     IconButton(
                       icon: Icon(Icons.refresh),
                       onPressed: () {},

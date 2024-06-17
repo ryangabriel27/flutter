@@ -51,4 +51,18 @@ class CityDbController {
       print(e);
     }
   }
+
+  // GetFavoriteCities
+  Future<List<CityDb>> getFavoriteCities() async {
+    try {
+      List<Map<String, dynamic>> maps = await _dbService.getAllFavoriteCities();
+      for (Map<String, dynamic> map in maps) {
+        _listCity.add(CityDb.fromMap(map));
+      }
+      return _listCity;
+    } catch (e) {
+      print(e);
+      return _listCity;
+    }
+  }
 }
