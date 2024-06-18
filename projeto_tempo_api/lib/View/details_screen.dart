@@ -4,6 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:projeto_tempo_api/Controller/city_db_controller.dart';
 import 'package:projeto_tempo_api/Controller/weatherController.dart';
 import 'package:projeto_tempo_api/Model/city_db_model.dart';
+import 'package:projeto_tempo_api/Service/iconService.dart';
 
 class DetailsScreen extends StatefulWidget {
   String city;
@@ -87,6 +88,10 @@ class _DetailsScreenState extends State<DetailsScreen> {
                   ),
                   Column(children: [
                     Text(_controller.listWeather.last.city),
+                    Icon(
+                      IconService.getWeatherIcon(_controller.listWeather.last.description),
+                      size: 64.0,
+                    ),
                     Text(_controller.listWeather.last.description),
                     Text(
                         "${(_controller.listWeather.last.temp - 273).toStringAsFixed(2)} C°"),

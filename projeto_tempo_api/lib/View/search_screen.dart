@@ -56,9 +56,13 @@ class _SearchScreenState extends State<SearchScreen> {
                   child: FutureBuilder(
                     future: _cityDbController.getAllCities(),
                     builder: (context, snapshot) {
-                      if (_cityDbController.getCities().isEmpty) {
+                      if (snapshot.connectionState == ConnectionState.waiting) {
                         return Center(
                           child: CircularProgressIndicator(),
+                        );
+                      } else if (_cityDbController.getCities().isEmpty) {
+                        return Center(
+                          child: Text("Nenhuma cidade pesquisada..."),
                         );
                       } else {
                         return ListView.builder(
@@ -69,6 +73,7 @@ class _SearchScreenState extends State<SearchScreen> {
                                     index -
                                     1;
                             return ListTile(
+                              leading: Icon(Icons.history),
                               title: Text(_cityDbController
                                   .getCities()[reversedIndex]
                                   .cityName),
