@@ -7,10 +7,11 @@ class FilmeController {
 
   Future<void> getFromFilmeFromService() async {
     try {
+      listFilmes.clear();
       listFilmes = await _service.getFilmes();
-      print('List of filmes: $listFilmes'); // Log para ver a lista de filmes
+      print('List filmes: $listFilmes'); // Log para ver a lista de filmes
     } catch (e) {
-      print('Error fetching filmes: $e'); // Log para ver o erro
+      print(e); // Log para ver o erro
     }
   }
 
@@ -18,19 +19,19 @@ class FilmeController {
     try {
       Filme newFilme = await _service.postFilme(filme);
       listFilmes.add(newFilme);
-      print('Filme added: $newFilme');
+      print('Filme adicionado: $newFilme');
     } catch (e) {
-      print('Error adding filme: $e');
+      print(e);
     }
   }
 
   Future<void> deleteFilme(String id) async {
     try {
-      await _service.deleteFilme(id);
-      listFilmes.removeWhere((filme) => filme.id == id);
-      print('Filme deleted with id: $id');
+      await _service.deleteFilme(id); // Faz o método DELETE para a url
+      listFilmes.removeWhere((filme) => filme.id == id); // Remove da lista
+      print('Filme excluido: $id');
     } catch (e) {
-      print('Error deleting filme: $e');
+      print(e);
     }
   }
 }

@@ -11,8 +11,7 @@ class FilmeService {
     final response = await http.get(url);
 
     if (response.statusCode == 200) {
-      print(
-          'Response body: ${response.body}'); // Log para ver o corpo da resposta
+      // print(response.body); -- Log para ver o corpo da resposta
       List<dynamic> jsonList = jsonDecode(response.body);
       return jsonList.map((json) => Filme.fromJson(json)).toList();
     } else {
