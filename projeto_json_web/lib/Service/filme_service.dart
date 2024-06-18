@@ -4,7 +4,7 @@ import 'package:http/http.dart' as http;
 import 'package:projeto_json_web/Model/filme_model.dart';
 
 class FilmeService {
-  final String baseUrl = 'http://10.109.207.170:3000/filmes';
+  final String baseUrl = 'http://10.109.204.51:3000/filmes';
 
   Future<List<Filme>> getFilmes() async {
     final url = Uri.parse(baseUrl);
@@ -40,6 +40,21 @@ class FilmeService {
 
     if (response.statusCode != 200) {
       throw Exception('Failed to delete filme');
+    }
+  }
+
+  //putFilme
+  Future<Filme> putFilme(Filme filme) async {
+    final url = Uri.parse(baseUrl);
+    final response = await http.put(
+      url,
+      body: jsonEncode(filme.toJson()),
+      headers: {'Content-Type': 'application/json'},
+    );
+    if (response.statusCode == 200) {
+      return Filme.fromJson(jsonDecode(response.body));
+    } else {
+      throw Exception('Failed to update filme');
     }
   }
 }

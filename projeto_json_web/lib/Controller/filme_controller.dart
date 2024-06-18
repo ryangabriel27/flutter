@@ -34,4 +34,17 @@ class FilmeController {
       print(e);
     }
   }
+
+  // EditFilme
+  Future<void> editFilme(Filme filme) async {
+    try {
+      await _service.putFilme(filme); // Faz o método PUT para a url
+      listFilmes
+          .removeWhere((filme) => filme.id == filme.id); // Remove da lista
+      listFilmes.add(filme);
+      print('Filme editado: $filme');
+    } catch (e) {
+      print(e);
+    }
+  }
 }

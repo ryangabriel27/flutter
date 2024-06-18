@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:projeto_json_web/Controller/filme_controller.dart';
 import 'package:projeto_json_web/View/filme_details_screen.dart';
+import 'package:projeto_json_web/View/filme_edit_screen.dart';
 
 class FilmeScreen extends StatefulWidget {
   const FilmeScreen({super.key});
@@ -52,15 +53,31 @@ class _FilmeScreenState extends State<FilmeScreen> {
                                   " (${_controller.listFilmes[index].ano})"),
                               subtitle: Text(
                                   "${_controller.listFilmes[index].categoria} | ${_controller.listFilmes[index].duracao} min"),
-                              trailing: IconButton(
-                                icon: Icon(Icons.delete),
-                                onPressed: () async {
-                                  await _controller.deleteFilme(
-                                      _controller.listFilmes[index].id!);
-                                  setState(() {
-                                    _controller.listFilmes.removeAt(index);
-                                  });
-                                },
+                              trailing: Row(
+                                children: [
+                                  IconButton(
+                                    icon: Icon(Icons.delete),
+                                    onPressed: () async {
+                                      await _controller.deleteFilme(
+                                          _controller.listFilmes[index].id!);
+                                      setState(() {
+                                        _controller.listFilmes.removeAt(index);
+                                      });
+                                    },
+                                  ),
+                                  IconButton(
+                                    icon: Icon(Icons.create_rounded),
+                                    onPressed: () async {
+                                      Navigator.push(
+                                          context,
+                                          MaterialPageRoute(
+                                              builder: (context) =>
+                                                  FilmeEditScreen(
+                                                      filme: _controller
+                                                          .listFilmes[index])));
+                                    },
+                                  ),
+                                ],
                               ),
                               onTap: () {
                                 Navigator.push(
