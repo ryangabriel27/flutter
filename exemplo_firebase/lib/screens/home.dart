@@ -16,17 +16,27 @@ class HomeScreen extends StatelessWidget {
             mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/login');
-                },
-                child: const Text('Login'),
-              ),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/login');
+                  },
+                  child: const Text('Login'),
+                  style: const ButtonStyle(
+                    backgroundColor:
+                        WidgetStatePropertyAll<Color>(Colors.purple),
+                    foregroundColor:
+                        WidgetStatePropertyAll<Color>(Colors.white),
+                  )),
               ElevatedButton(
-                onPressed: () {
-                  Navigator.pushNamed(context, '/registro');
-                },
-                child: const Text('Registro'),
-              ),
+                  onPressed: () {
+                    Navigator.pushNamed(context, '/registro');
+                  },
+                  child: const Text('Registro'),
+                  style: const ButtonStyle(
+                    backgroundColor:
+                        WidgetStatePropertyAll<Color>(Colors.purple),
+                    foregroundColor:
+                        WidgetStatePropertyAll<Color>(Colors.white),
+                  )),
             ],
           ),
         ));

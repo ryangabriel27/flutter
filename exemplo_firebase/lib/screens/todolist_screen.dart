@@ -71,7 +71,8 @@ class _TodoListScreenState extends State<TodoListScreen> {
                               itemCount: _controller.list.length,
                               itemBuilder: (context, index) {
                                 return ListTile(
-                                  title: Text(_controller.list[index].titulo),
+                                  title: Text(
+                                      "${index} - ${_controller.list[index].titulo}"),
                                   subtitle: Text(
                                       '${_controller.list[index].timestamp}'),
                                   trailing: IconButton(

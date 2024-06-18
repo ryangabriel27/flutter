@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
 import 'package:projeto_tempo_api/Controller/weatherController.dart';
+import 'package:projeto_tempo_api/Service/iconService.dart';
 
 class HomeScreen extends StatefulWidget {
   const HomeScreen({super.key});
@@ -71,6 +72,10 @@ class _HomeScreenState extends State<HomeScreen> {
                     icon: Icon(Icons.refresh))
                 : Column(children: [
                     Text(_controller.listWeather.last.city),
+                    Icon(
+                      IconService.getWeatherIcon(_controller.listWeather.last.description),
+                      size: 64.0,
+                    ),
                     Text(_controller.listWeather.last.description),
                     Text("${(_controller.listWeather.last.temp - 273)} C°"),
                     Text("${(_controller.listWeather.last.tempMin - 273)} C°"),
